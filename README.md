@@ -1,145 +1,114 @@
-# Credit Card Approval Prediction 🚀
+# Credit Card Approval Prediction System
 
-This project predicts whether an individual’s credit card application should be approved, based on demographic and credit behavior data. It uses various machine learning models and compares their performance to select and deploy the best one.
+This project is a machine learning-based web application that predicts the likelihood of credit card approval for a customer based on their personal and financial details. It leverages a Random Forest Classifier trained on historical credit and application records.
 
 ---
 
-## 📁 Project Structure
+## 🔍 Project Overview
+
+Many financial institutions face challenges in assessing credit card applications quickly and accurately. This project provides a predictive solution using machine learning to automate and improve this process.
+
+The application offers:
+- A user-friendly web interface (built using Flask)
+- Real-time predictions
+- Visual insights into model performance
+
+---
+
+## 📁 Directory Structure
 
 ```
 
-Credit-Card-Approval-Prediction/
-│
 ├── Dataset/
-│   ├── application\_record.csv       # Applicant demographic & employment data
-│   └── credit\_record.csv            # Credit history data
-│
+│   ├── application\_record.csv
+│   └── credit\_record.csv
 ├── Images/
-│   ├── Decision\_Tree\_plot.png
-│   ├── Logistic\_Regression\_plot.png
-│   ├── Random\_Forest\_plot.png
+│   ├── Decision Tree\_plot.png
+│   ├── Logistic Regression\_plot.png
+│   ├── Random Forest\_plot.png
 │   ├── XGBoost\_plot.png
 │   └── model\_comparison\_metrics.png
-│
 ├── models/
-│   ├── Random\_Forest\_best\_model.pkl # Saved best performing model
-│   ├── best\_threshold.txt           # Threshold used for classification
-│   └── train\_columns.pkl            # Feature columns used during training
-│
+│   ├── Random\_Forest\_best\_model.pkl
+│   ├── best\_threshold.txt
+│   └── train\_columns.pkl
 ├── notebooks/
-│   ├── 1\_Visualizing\_and\_analyzing\_data.ipynb  # EDA & insights
-│   ├── 2\_Data\_preprocessing.ipynb              # Feature engineering & cleaning
-│   ├── 3\_Model\_building.ipynb                  # Training and evaluation of models
-│   └── 4\_Prediction.ipynb                      # Using the trained model to predict on new data
-│
-├── requirements.txt      # Python dependencies
-└── .gitignore
+│   ├── 1\_Visualizing\_and\_analyzing\_data.ipynb
+│   ├── 2\_Data\_preprocessing.ipynb
+│   ├── 3\_Model\_building.ipynb
+│   └── 4\_Prediction.ipynb
+├── static/
+│   └── credits-card.jpg
+├── templates/
+│   ├── landing\_page.html
+│   ├── form.html
+│   └── result.html
+├── app.py
+├── requirements.txt
+├── LICENSE
+├── .gitignore
+└── README.md
 
 ````
 
----
+## 🚀 How to Run the Project
 
-## 📊 Dataset Description
+1. **Clone the repository**  
+   ```bash
+   git clone https://github.com/your-username/credit-card-approval-prediction.git
+   cd credit-card-approval-prediction
 
-Two datasets are used from [Kaggle Credit Card Approval dataset](https://www.kaggle.com/datasets/rikdifos/credit-card-approval-prediction):
 
-- `application_record.csv` - Contains demographic and employment data.
-- `credit_record.csv` - Contains the credit behavior history of each individual.
+2. **Create a virtual environment** (optional but recommended)
 
----
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   ```
 
-## 🧠 Models Used
+3. **Install dependencies**
 
-- Logistic Regression
-- Decision Tree
-- Random Forest
-- XGBoost
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-Each model is evaluated based on:
-- **F1 Score**
-- Accuracy
-- Precision
-- Recall
-- ROC AUC
+4. **Run the Flask app**
 
-The model with the best F1 score is selected and saved for production use.
+   ```bash
+   python app.py
+   ```
 
----
-
-## 🧪 Model Evaluation
-
-Visualizations such as ROC curves, confusion matrices, and performance bar plots are provided in the `Images/` folder.
-
-✅ **Best model:** Random Forest  
-📈 **Best metric:** Highest F1-score (see `model_comparison_metrics.png`)
+5. **Visit in browser:**
+   Navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000) to use the application.
 
 ---
 
-## 📦 Setup Instructions
+## 🧠 Machine Learning Details
 
-### 1. Clone the repo
-
-```bash
-git clone https://github.com/udityamerit/Credit-Card-Approval-Prediction.git
-cd Credit-Card-Approval-Prediction
-````
-
-### 2. Create and activate a virtual environment
-
-```bash
-python -m venv newenv
-source newenv/bin/activate  # or newenv\Scripts\activate on Windows
-```
-
-### 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
+* **Model Used:** Random Forest Classifier
+* **Evaluation Metrics:** Accuracy, F1 Score, Confusion Matrix
+* **Preprocessing:** Handled using SMOTE, encoding, feature scaling
+* **Threshold Selection:** Based on optimized F1 score
 
 ---
 
-## 🚀 Run the Project
+## 📊 Visualizations
 
-You can run each notebook in order:
+Located in the `Images/` folder, these plots help analyze the performance of:
 
-1. `1_Visualizing_and_analyzing_data.ipynb`
-2. `2_Data_preprocessing.ipynb`
-3. `3_Model_building.ipynb`
-4. `4_Prediction.ipynb`
-
----
-
-## 💾 Model Inference
-
-To load the saved model and threshold:
-
-```python
-import joblib
-
-model = joblib.load("models/Random_Forest_best_model.pkl")
-threshold = float(open("models/best_threshold.txt").read())
-features = joblib.load("models/train_columns.pkl")
-```
-
-Use this to predict new input data.
+* Logistic Regression
+* Decision Trees
+* Random Forests
+* XGBoost
+* Model comparison metrics
 
 ---
 
-## 🛠 Technologies
+## 🖥️ Web Interface (Flask)
 
-* Python 3
-* scikit-learn
-* xgboost
-* pandas, numpy
-* matplotlib, seaborn
-* Jupyter Notebook
-
----
-
-## 📷 Visualizations
-
-Plots for each model and comparison metrics are stored in the `Images/` directory to help understand how each model performed.
+* `landing_page.html`: Welcome screen with a CTA to begin prediction
+* `form.html`: Takes user inputs for prediction
+* `result.html`: Displays prediction results and approval probability
 
 ![alt text](<WhatsApp Image 2025-06-21 at 01.04.47_99cd76c4.jpg>)
 
@@ -148,19 +117,36 @@ Plots for each model and comparison metrics are stored in the `Images/` director
 ![alt text](<WhatsApp Image 2025-06-21 at 01.06.10_da8e5403.jpg>)
 ---
 
-## 🙌 Author
-[Uditya Narayan Tiwari](https://github.com/udityamerit)
+## 👨‍💻 Author
 
-[Kirti Pratihar ](https://github.com/KirtiPratihar)
+* **Uditya Narayan Tiwari** – [GitHub](https://github.com/udityamerit)
 
-[Rutuja Kumbhar ](https://github.com/KirtiPratihar)
+## 🤝 Collaborators
 
-[Pranjal ](https://github.com/PranjalMerit)
-
+* **Kirti Pratihar**
+* **Rutuja Kumbhar**
+* **Pranjal**
 
 ---
 
 ## 📄 License
 
-This project is open-source under the MIT License.
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
 
+---
+
+## 📧 Connect with Me
+
+**Uditya Narayan Tiwari**
+
+🌐 [My Portfolio](https://udityanarayantiwari.netlify.app/)
+
+💼 [My LinkedIn](https://www.linkedin.com/in/uditya-narayan-tiwari-562332289/)
+
+👨‍💻 [My GitHub](https://github.com/udityamerit)
+
+📧 [Email Id](uditmerit@gmail.com)
+
+
+
+If you have any questions or suggestions, feel free to reach out via GitHub or email.
