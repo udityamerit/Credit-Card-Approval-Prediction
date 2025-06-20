@@ -22,30 +22,36 @@ The application offers:
 ├── Dataset/
 │   ├── application\_record.csv
 │   └── credit\_record.csv
+│ 
 ├── Images/
 │   ├── Decision Tree\_plot.png
 │   ├── Logistic Regression\_plot.png
 │   ├── Random Forest\_plot.png
 │   ├── XGBoost\_plot.png
 │   └── model\_comparison\_metrics.png
+│ 
 ├── models/
 │   ├── Random\_Forest\_best\_model.pkl
 │   ├── best\_threshold.txt
 │   └── train\_columns.pkl
+│ 
 ├── notebooks/
 │   ├── 1\_Visualizing\_and\_analyzing\_data.ipynb
 │   ├── 2\_Data\_preprocessing.ipynb
 │   ├── 3\_Model\_building.ipynb
 │   └── 4\_Prediction.ipynb
+│ 
 ├── static/
 │   ├── credits-card.jpg
-    ├── landing_page.jpg
+│   ├── landing_page.jpg
 │   ├── input_page.png
 │   ├── result_page.png
+│ 
 ├── templates/
 │   ├── landing\_page.html
 │   ├── form.html
 │   └── result.html
+│ 
 ├── app.py
 ├── requirements.txt
 ├── LICENSE
