@@ -2,32 +2,273 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Credit Card Eligibility Predictor</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loan Approval Prediction</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #F6DED8;
+            color: #333;
+        }
+        .container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 8px 20px rgba(184, 33, 50, 0.1);
+        }
+        header {
+            background: linear-gradient(135deg, #B82132, #D2665A);
+            color: white;
+            padding: 30px 0;
+            text-align: center;
+            margin-bottom: 30px;
+            border-radius: 0 0 15px 15px;
+        }
+        h1 {
+            color: #B82132;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 2rem;
+        }
+        .form-group {
+            margin-bottom: 25px;
+        }
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #B82132;
+        }
+        input[type="text"],
+        input[type="number"],
+        select {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #F2B28C;
+            border-radius: 8px;
+            box-sizing: border-box;
+            font-size: 16px;
+            transition: all 0.3s;
+            background-color: #F6DED8;
+        }
+        input[type="text"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #D2665A;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(210, 102, 90, 0.2);
+        }
+        .form-row {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 20px;
+        }
+        .form-col {
+            flex: 1;
+        }
+        .btn {
+            background: linear-gradient(to right, #D2665A, #F2B28C);
+            color: white;
+            padding: 14px 0;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: 600;
+            display: block;
+            width: 100%;
+            margin-top: 30px;
+            transition: all 0.3s;
+            box-shadow: 0 4px 8px rgba(210, 102, 90, 0.3);
+        }
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(210, 102, 90, 0.4);
+        }
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        .good {
+            background-color: #d4edda;
+            color: #155724;
+        }
+        .bad {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+        .error {
+            color: red;
+            font-weight: bold;
+        }
+        .form-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .form-header h2 {
+            color: #D2665A;
+            margin-bottom: 10px;
+        }
+        .form-header p {
+            color: #666;
+        }
+    </style>
 </head>
 <body>
-    <h2>📥 Enter Your Details</h2>
-    <form method="post">
-        Gender (M/F): <input name="CODE_GENDER"><br><br>
-        Owns a Car? (Y/N): <input name="FLAG_OWN_CAR"><br><br>
-        Owns Realty? (Y/N): <input name="FLAG_OWN_REALTY"><br><br>
-        Number of Children: <input name="CNT_CHILDREN" type="number"><br><br>
-        Annual Income: <input name="AMT_INCOME_TOTAL" type="number"><br><br>
-        Income Type: <input name="NAME_INCOME_TYPE"><br><br>
-        Education Type: <input name="NAME_EDUCATION_TYPE"><br><br>
-        Family Status: <input name="NAME_FAMILY_STATUS"><br><br>
-        Housing Type: <input name="NAME_HOUSING_TYPE"><br><br>
-        Days Since Birth (e.g. -12000): <input name="DAYS_BIRTH"><br><br>
-        Days Employed (negative if employed): <input name="DAYS_EMPLOYED"><br><br>
-        Has Work Phone? (1/0): <input name="FLAG_WORK_PHONE"><br><br>
-        Has Phone? (1/0): <input name="FLAG_PHONE"><br><br>
-        Has Email? (1/0): <input name="FLAG_EMAIL"><br><br>
-        Number of Family Members: <input name="CNT_FAM_MEMBERS"><br><br>
-        <button type="submit">Predict</button>
-    </form>
+    <header>
+        <h1>📊 Credit Card / Loan Approval Prediction</h1>
+    </header>
 
-    {% if probability is defined %}
-        <h3>🔍 Probability of Bad Credit: {{ probability }}</h3>
-        <h3>💡 Prediction: {{ result }}</h3>
-    {% endif %}
+    <div class="container">
+        <div class="form-header">
+            <h2>📥 Enter Your Details</h2>
+            <p>Please fill in all the required information for accurate prediction.</p>
+        </div>
+
+        {% if request.method == 'POST' %}
+            {% if result %}
+                <div class="result {{ result_class }}">
+                    Probability of Bad Credit: {{ probability }}<br>
+                    {{ result }}
+                </div>
+            {% elif error %}
+                <p class="error">❌ Error: {{ error }}</p>
+            {% endif %}
+        {% endif %}
+
+        <form method="POST">
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="CODE_GENDER">Gender</label>
+                        <select id="CODE_GENDER" name="CODE_GENDER" required>
+                            <option value="">Select Gender</option>
+                            <option value="M">Male</option>
+                            <option value="F">Female</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="FLAG_OWN_CAR">Owns a Car?</label>
+                        <select id="FLAG_OWN_CAR" name="FLAG_OWN_CAR" required>
+                            <option value="">Select Option</option>
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="FLAG_OWN_REALTY">Owns Realty?</label>
+                        <select id="FLAG_OWN_REALTY" name="FLAG_OWN_REALTY" required>
+                            <option value="">Select Option</option>
+                            <option value="Y">Yes</option>
+                            <option value="N">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="CNT_CHILDREN">Number of Children</label>
+                        <input type="number" id="CNT_CHILDREN" name="CNT_CHILDREN" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="AMT_INCOME_TOTAL">Annual Income</label>
+                        <input type="number" id="AMT_INCOME_TOTAL" name="AMT_INCOME_TOTAL" step="0.01" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="NAME_INCOME_TYPE">Income Type</label>
+                        <select id="NAME_INCOME_TYPE" name="NAME_INCOME_TYPE" required>
+                            <option value="">Select Income Type</option>
+                            <option>Working</option>
+                            <option>Pensioner</option>
+                            <option>Commercial associate</option>
+                            <option>State servant</option>
+                            <option>Student</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="NAME_EDUCATION_TYPE">Education Type</label>
+                        <select id="NAME_EDUCATION_TYPE" name="NAME_EDUCATION_TYPE" required>
+                            <option value="">Select Education Level</option>
+                            <option value="Higher education">Higher education</option>
+                            <option value="Secondary / secondary special">Secondary</option>
+                            <option value="Lower secondary">Lower secondary</option>
+                            <option value="Incomplete higher">Incomplete higher</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="NAME_FAMILY_STATUS">Family Status</label>
+                        <select id="NAME_FAMILY_STATUS" name="NAME_FAMILY_STATUS" required>
+                            <option value="">Select Family Status</option>
+                            <option>Single / not married</option>
+                            <option>Married</option>
+                            <option>Divorced</option>
+                            <option>Separated</option>
+                            <option>Widow</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="NAME_HOUSING_TYPE">Housing Type</label>
+                        <select id="NAME_HOUSING_TYPE" name="NAME_HOUSING_TYPE" required>
+                            <option value="">Select Housing Type</option>
+                            <option>House / apartment</option>
+                            <option>Rented apartment</option>
+                            <option>Co-op apartment</option>
+                            <option>With parents</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="AGE_YEARS">Age (in years)</label>
+                        <input type="number" id="AGE_YEARS" name="AGE_YEARS" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="EMPLOYED_YEARS">Years Employed</label>
+                        <input type="number" id="EMPLOYED_YEARS" name="EMPLOYED_YEARS" step="0.1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="CNT_FAM_MEMBERS">Number of Family Members</label>
+                        <input type="number" id="CNT_FAM_MEMBERS" name="CNT_FAM_MEMBERS" step="0.1" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-col">
+                    <div class="form-group">
+                        <label for="FLAG_WORK_PHONE">Has Work Phone?</label>
+                        <select id="FLAG_WORK_PHONE" name="FLAG_WORK_PHONE" required>
+                            <option value="">Select Option</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="FLAG_PHONE">Has Phone?</label>
+                        <select id="FLAG_PHONE" name="FLAG_PHONE" required>
+                            <option value="">Select Option</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="FLAG_EMAIL">Has Email?</label>
+                        <select id="FLAG_EMAIL" name="FLAG_EMAIL" required>
+                            <option value="">Select Option</option>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <button type="submit" class="btn">Predict</button>
+        </form>
+    </div>
 </body>
 </html>
