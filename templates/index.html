@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Credit Card Eligibility Predictor</title>
+</head>
+<body>
+    <h2>📥 Enter Your Details</h2>
+    <form method="post">
+        Gender (M/F): <input name="CODE_GENDER"><br><br>
+        Owns a Car? (Y/N): <input name="FLAG_OWN_CAR"><br><br>
+        Owns Realty? (Y/N): <input name="FLAG_OWN_REALTY"><br><br>
+        Number of Children: <input name="CNT_CHILDREN" type="number"><br><br>
+        Annual Income: <input name="AMT_INCOME_TOTAL" type="number"><br><br>
+        Income Type: <input name="NAME_INCOME_TYPE"><br><br>
+        Education Type: <input name="NAME_EDUCATION_TYPE"><br><br>
+        Family Status: <input name="NAME_FAMILY_STATUS"><br><br>
+        Housing Type: <input name="NAME_HOUSING_TYPE"><br><br>
+        Days Since Birth (e.g. -12000): <input name="DAYS_BIRTH"><br><br>
+        Days Employed (negative if employed): <input name="DAYS_EMPLOYED"><br><br>
+        Has Work Phone? (1/0): <input name="FLAG_WORK_PHONE"><br><br>
+        Has Phone? (1/0): <input name="FLAG_PHONE"><br><br>
+        Has Email? (1/0): <input name="FLAG_EMAIL"><br><br>
+        Number of Family Members: <input name="CNT_FAM_MEMBERS"><br><br>
+        <button type="submit">Predict</button>
+    </form>
+
+    {% if probability is defined %}
+        <h3>🔍 Probability of Bad Credit: {{ probability }}</h3>
+        <h3>💡 Prediction: {{ result }}</h3>
+    {% endif %}
+</body>
+</html>
