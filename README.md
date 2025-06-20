@@ -145,7 +145,7 @@ Plots for each model and comparison metrics are stored in the `Images/` director
 
 ## 🙌 Author
 [Uditya Narayan Tiwari](https://github.com/udityamerit)
-https://github.com/KirtiPratihar
+[Kirti Pratihar ](https://github.com/KirtiPratihar)
 
 ---
 
