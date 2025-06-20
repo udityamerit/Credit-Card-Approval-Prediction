@@ -14,7 +14,6 @@ train_columns = joblib.load("models/train_columns.pkl")
 def index():
     if request.method == "POST":
         try:
-            # Get age and employment in years, convert to negative days
             age_years = int(request.form.get("AGE_YEARS", 0))
             employed_years = float(request.form.get("EMPLOYED_YEARS", 0))
 
@@ -36,23 +35,21 @@ def index():
                 'CNT_FAM_MEMBERS': float(request.form.get("CNT_FAM_MEMBERS", 0)),
             }
 
-            # DataFrame + one-hot encoding
             user_df = pd.DataFrame([user_data])
             user_encoded = pd.get_dummies(user_df)
 
-            # Add missing columns
             for col in train_columns:
                 if col not in user_encoded.columns:
                     user_encoded[col] = 0
 
             user_encoded = user_encoded[train_columns]
 
-            # Predict
             proba = model.predict_proba(user_encoded)[:, 1][0]
             prediction = int(proba >= threshold)
             result_text = "GOOD CREDIT RISK — Eligible for Credit Card" if prediction == 0 else "BAD CREDIT RISK — Not Eligible for Credit Card"
+            result_class = "good" if prediction == 0 else "bad"
 
-            return render_template("index.html", probability=round(proba, 4), result=result_text)
+            return render_template("index.html", probability=round(proba, 4), result=result_text, result_class=result_class)
 
         except Exception as e:
             return render_template("index.html", error=f"❌ Error: {str(e)}")
