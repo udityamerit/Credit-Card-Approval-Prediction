@@ -130,6 +130,18 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 
 ---
 
-## 📬 Contact
+## 📧 Connect with Me
+
+**Uditya Narayan Tiwari**
+
+🌐 [My Portfolio](https://udityanarayantiwari.netlify.app/)
+
+💼 [My LinkedIn](https://www.linkedin.com/in/uditya-narayan-tiwari-562332289/)
+
+👨‍💻 [My GitHub](https://github.com/udityamerit)
+
+📧 [Email Id](uditmerit@gmail.com)
+
+
 
 If you have any questions or suggestions, feel free to reach out via GitHub or email.
