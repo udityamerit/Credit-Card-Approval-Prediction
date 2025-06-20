@@ -10,7 +10,7 @@
       --header-bg: #002147;
       --accent-color: #ffc107;
       --btn-gradient: linear-gradient(to right, #002147, #1e3c72);
-      --input-bg: rgba(255, 255, 255, 0.9);
+      --input-bg: rgba(255, 255, 255, 0.5);
       --border-color: #d6dee6;
     }
 
@@ -31,12 +31,33 @@
       text-align: center;
       padding: 2rem 1rem;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      position: relative;
     }
 
     header h1 {
       font-size: 2rem;
       margin: 0;
       letter-spacing: 1px;
+    }
+
+    .home-button {
+      position: absolute;
+      top: 1.5rem;
+      right: 1.5rem;
+      background: var(--accent-color);
+      border: none;
+      padding: 10px 16px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      border-radius: 6px;
+      color: #002147;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .home-button:hover {
+      background: #e0a800;
     }
 
     .container {
@@ -142,18 +163,26 @@
       .container {
         padding: 20px;
       }
+
+      .home-button {
+        top: 1rem;
+        right: 1rem;
+        padding: 8px 12px;
+      }
     }
   </style>
 </head>
 <body>
   <header>
     <h1>Credit Card Approval Prediction</h1>
+    <a href="/" class="home-button">🏠 Home</a>
   </header>
 
   <div class="container">
     <form method="POST" action="/result">
       <div class="form-row">
         <div class="form-col">
+          <!-- form inputs left side -->
           <div class="form-group">
             <label for="CODE_GENDER">Gender</label>
             <select name="CODE_GENDER" required>
@@ -195,6 +224,7 @@
         </div>
 
         <div class="form-col">
+          <!-- form inputs right side -->
           <div class="form-group">
             <label for="NAME_EDUCATION_TYPE">Education Type</label>
             <select name="NAME_EDUCATION_TYPE" required>
@@ -237,6 +267,7 @@
 
       <div class="form-row">
         <div class="form-col">
+          <!-- contact info -->
           <div class="form-group">
             <label for="FLAG_WORK_PHONE">Has Work Phone?</label>
             <select name="FLAG_WORK_PHONE" required>

@@ -1,136 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Credit Card Approval Prediction</title>
-    <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #F6DED8;
-            color: #333;
-        }
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-        }
-        header {
-            background: linear-gradient(135deg, #B82132, #D2665A);
-            color: white;
-            padding: 40px 0;
-            text-align: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        }
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        .content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 60vh;
-            padding: 40px 0;
-        }
-        .btn {
-            display: inline-block;
-            background: linear-gradient(to right, #D2665A, #F2B28C);
-            color: white;
-            padding: 14px 35px;
-            text-decoration: none;
-            border-radius: 30px;
-            font-size: 18px;
-            margin-top: 30px;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            box-shadow: 0 4px 8px rgba(210, 102, 90, 0.3);
-        }
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(210, 102, 90, 0.4);
-        }
-        .features {
-            display: flex;
-            justify-content: space-around;
-            margin-top: 60px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-        .feature {
-            text-align: center;
-            width: 28%;
-            margin-bottom: 20px;
-            background-color: white;
-            padding: 30px 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-        .feature:hover {
-            transform: translateY(-10px);
-        }
-        .feature h3 {
-            color: #B82132;
-            margin-bottom: 15px;
-        }
-        footer {
-            background: linear-gradient(135deg, #D2665A, #B82132);
-            color: white;
-            text-align: center;
-            padding: 20px 0;
-            width: 100%;
-        }
-        .highlight {
-            color: #B82132;
-            font-weight: 600;
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Credit Card Approval Prediction</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #F6DED8;
+      color: #333;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #B82132, #D2665A);
+      color: white;
+      padding: 40px 0;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .typing-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100px;
+  position: relative;
+}
+
+.typing-line {
+  font-size: 1.6rem;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 0;
+  opacity: 0;
+}
+
+.line1 {
+  animation: type1 8s ease-in-out infinite;
+}
+
+.line2 {
+  position: absolute;
+  top: 0;
+  animation: type2 8s ease-in-out infinite;
+}
+
+@keyframes type1 {
+  0%   { width: 0; opacity: 1; }
+  10%  { width: 100%; opacity: 1; }
+  40%  { width: 100%; opacity: 1; }
+  50%  { width: 0; opacity: 0; }
+  100% { width: 0; opacity: 0; }
+}
+
+@keyframes type2 {
+  0%, 50%  { width: 0; opacity: 0; }
+  60%      { width: 100%; opacity: 1; }
+  90%      { width: 100%; opacity: 1; }
+  100%     { width: 0; opacity: 0; }
+}
+
+
+    .line1 {
+      animation: type1 10s steps(42) infinite;
+    }
+
+    .line2 {
+      animation: type2 10s steps(65) infinite;
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+
+    .content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 60vh;
+      padding: 40px 0;
+    }
+
+    .content h2 {
+      font-size: 2.2rem;
+      text-align: center;
+    }
+
+    .content p {
+      font-size: 1.25rem;
+    }
+
+    .btn {
+      display: inline-block;
+      background: linear-gradient(to right, #D2665A, #F2B28C);
+      color: white;
+      padding: 14px 35px;
+      text-decoration: none;
+      border-radius: 30px;
+      font-size: 22px;
+      margin-top: 30px;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      font-weight: 800;
+      box-shadow: 0 4px 8px rgba(210, 102, 90, 0.3);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 12px rgba(210, 102, 90, 0.4);
+    }
+
+    .features {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 60px;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
+
+    .feature {
+      text-align: center;
+      width: 28%;
+      margin-bottom: 20px;
+      background-color: white;
+      padding: 30px 20px;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+      transition: transform 0.3s ease;
+    }
+
+    .feature:hover {
+      transform: translateY(-10px);
+    }
+
+    .feature h3 {
+      color: #B82132;
+      margin-bottom: 15px;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #D2665A, #B82132);
+      color: white;
+      text-align: center;
+      padding: 20px 0;
+      width: 100%;
+    }
+
+    .highlight {
+      color: #B82132;
+      font-weight: 600;
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <h1>Credit Card Approval Prediction System</h1>
-            <p>Get instant prediction about your credit card approval chances with our AI-powered platform</p>
-        </div>
-    </header>
-
+  <header>
     <div class="container">
-        <div class="content">
-            <h2>Welcome to our <span class="highlight">Credit Card Approval</span> Prediction Service</h2>
-            <p style="max-width: 700px; text-align: center; line-height: 1.6;">
-                Our advanced machine learning model analyzes multiple factors to predict whether your credit card application will be approved, helping you save time and improve your chances of success.
-            </p>
-            <a href="/predict" class="btn">Get Started</a>
-
-
-
-            <div class="features">
-                <div class="feature">
-                    <h3>⚡ Fast Prediction</h3>
-                    <p>Get instant results without waiting in long queues or dealing with paperwork</p>
-                </div>
-                <div class="feature">
-                    <h3>🎯 Accurate Analysis</h3>
-                    <p>Powered by advanced machine learning algorithms trained on thousands of cases</p>
-                </div>
-                <div class="feature">
-                    <h3>😊 User Friendly</h3>
-                    <p>Simple and intuitive interface that anyone can use without technical knowledge</p>
-                </div>
-            </div>
+      <div class="typing-wrapper">
+        <div class="typing-line line1">
+          Credit Card Approval Prediction System
         </div>
+        <div class="typing-line line2">
+          Get instant prediction about your credit card approval chances with our AI-powered platform
+        </div>
+      </div>
     </div>
+  </header>
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Credit Card Approval Prediction System. All rights reserved.</p>
+  <div class="container">
+    <div class="content">
+      <h2>Welcome to our <span class="highlight">Credit Card Approval</span> Prediction Service</h2>
+      <p style="max-width: 700px; text-align: center; line-height: 1.6;">
+        Our advanced machine learning model analyzes multiple factors to predict whether your credit card application will be approved, helping you save time and improve your chances of success.
+      </p>
+      <a href="/predict" class="btn">Get Started</a>
+
+      <div class="features">
+        <div class="feature">
+          <h3>⚡ Fast Prediction</h3>
+          <p>Get instant results without waiting in long queues or dealing with paperwork</p>
         </div>
-    </footer>
+        <div class="feature">
+          <h3>🎯 Accurate Analysis</h3>
+          <p>Powered by advanced machine learning algorithms trained on thousands of cases</p>
+        </div>
+        <div class="feature">
+          <h3>😊 User Friendly</h3>
+          <p>Simple and intuitive interface that anyone can use without technical knowledge</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2025 Credit Card Approval Prediction System. All rights reserved.</p>
+    </div>
+  </footer>
 </body>
 </html>
