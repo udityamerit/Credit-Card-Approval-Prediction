@@ -110,11 +110,11 @@ Located in the `Images/` folder, these plots help analyze the performance of:
 * `form.html`: Takes user inputs for prediction
 * `result.html`: Displays prediction results and approval probability
 
-![alt text](<WhatsApp Image 2025-06-21 at 01.04.47_99cd76c4.jpg>)
+![alt text](<landing_page.jpg>)
 
-![alt text](<WhatsApp Image 2025-06-21 at 01.05.21_de4845fc.jpg>)
+![alt text](<Input_page.jpg>)
 
-![alt text](<WhatsApp Image 2025-06-21 at 01.06.10_da8e5403.jpg>)
+![alt text](<result_page.jpg>)
 ---
 
 ## 👨‍💻 Author
