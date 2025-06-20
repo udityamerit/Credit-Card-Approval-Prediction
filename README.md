@@ -110,11 +110,11 @@ Located in the `Images/` folder, these plots help analyze the performance of:
 * `form.html`: Takes user inputs for prediction
 * `result.html`: Displays prediction results and approval probability
 
-![alt text](<landing_page.jpg>)
+![alt text](<static\landing_page.jpg>)
 
-![alt text](<Input_page.jpg>)
+![alt text](<static\Input_page.jpg>)
 
-![alt text](<result_page.jpg>)
+![alt text](<static\result_page.jpg>)
 ---
 
 ## 👨‍💻 Author
