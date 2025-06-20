@@ -109,12 +109,17 @@ Located in the `Images/` folder, these plots help analyze the performance of:
 * `landing_page.html`: Welcome screen with a CTA to begin prediction
 * `form.html`: Takes user inputs for prediction
 * `result.html`: Displays prediction results and approval probability
+## 🔥 Project Screenshots
 
-![alt text](<C:\Users\Uditya\Documents\GitHub\Credit Card Approval Prediction\static\landing_page.jpg>)
+### 🚀 Landing Page
+![Landing Page](static/landing_page.jpg)
 
-![alt text](<C:\Users\Uditya\Documents\GitHub\Credit Card Approval Prediction\static\Input_page.jpg>)
+### 🧾 Input Form
+![Input Page](static/Input_page.jpg)
 
-![alt text](<C:\Users\Uditya\Documents\GitHub\Credit Card Approval Prediction\static\result_page.jpg>)
+### ✅ Result Prediction
+![Result Page](static/result_page.jpg)
+
 ---
 
 ## 👨‍💻 Author
