@@ -38,7 +38,10 @@ The application offers:
 │   ├── 3\_Model\_building.ipynb
 │   └── 4\_Prediction.ipynb
 ├── static/
-│   └── credits-card.jpg
+│   ├── credits-card.jpg
+    ├── landing_page.jpg
+│   ├── input_page.png
+│   ├── result_page.png
 ├── templates/
 │   ├── landing\_page.html
 │   ├── form.html
