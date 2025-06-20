@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Prediction Result</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f0f2f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 50px auto;
+      background-color: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 2rem;
+      color: #002147;
+    }
+
+    .result-box {
+      margin-top: 30px;
+      padding: 20px;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
+
+    .good {
+      background-color: #d4edda;
+      color: #155724;
+      border-left: 8px solid #28a745;
+    }
+
+    .bad {
+      background-color: #f8d7da;
+      color: #721c24;
+      border-left: 8px solid #dc3545;
+    }
+
+    .back-btn {
+      display: inline-block;
+      margin-top: 30px;
+      padding: 12px 30px;
+      font-size: 1rem;
+      background: linear-gradient(to right, #002147, #1e3c72);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      transform: scale(1.05);
+      background: linear-gradient(to right, #1e3c72, #002147);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Credit Card Prediction Result</h1>
+    <div class="result-box {{ result_class }}">
+      Probability of Bad Credit: {{ probability }}<br>
+      {{ result }}
+    </div>
+    <a class="back-btn" href="/predict">← Try Another Prediction</a>
+  </div>
+</body>
+</html>
