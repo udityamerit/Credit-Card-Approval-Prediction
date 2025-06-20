@@ -141,6 +141,11 @@ Use this to predict new input data.
 
 Plots for each model and comparison metrics are stored in the `Images/` directory to help understand how each model performed.
 
+![alt text](<WhatsApp Image 2025-06-21 at 01.04.47_99cd76c4.jpg>)
+
+![alt text](<WhatsApp Image 2025-06-21 at 01.05.21_de4845fc.jpg>)
+
+![alt text](<WhatsApp Image 2025-06-21 at 01.06.10_da8e5403.jpg>)
 ---
 
 ## 🙌 Author
