@@ -139,7 +139,7 @@ Located in the `Images/` folder, these plots help analyze the performance of:
 
 * **Kirti Pratihar** - [GitHub](https://github.com/KirtiPratihar)
 * **Rutuja Kumbhar** - [GitHub](https://github.com/RutujaKumbhar17)
-* **Pranjal** - [gitHub](https://github.com/PranjalMerit)
+* **Pranjal** - [GitHub](https://github.com/PranjalMerit)
 
 ---
 
