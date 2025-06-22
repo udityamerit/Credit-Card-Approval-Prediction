@@ -113,11 +113,13 @@ Located in the `Images/` folder, these plots help analyze the performance of:
 
 ---
 
-## 🖥️ Web Interface (Flask)
+## 🖥️ Web Interface Using Flask
 
-* `landing_page.html`: Welcome screen with a CTA to begin prediction
+* `landing_page.html`: Landing page with a call-to-action to initiate prediction
 * `form.html`: Takes user inputs for prediction
 * `result.html`: Displays prediction results and approval probability
+
+
 ## 🔥 Project Screenshots
 
 ### 🚀 Landing Page
