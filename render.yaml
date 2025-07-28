@@ -1,0 +1,6 @@
+services:
+  - type: web
+    name: credit-card-approval
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn wsgi:app
