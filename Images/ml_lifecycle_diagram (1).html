@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ML Lifecycle Flowchart</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            overflow: hidden;
+            padding: 40px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            margin: 0;
+            font-weight: 300;
+        }
+        
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.2em;
+            margin: 10px 0;
+        }
+        
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 30px;
+        }
+        
+        .flow-row {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 30px;
+            width: 100%;
+            flex-wrap: wrap;
+        }
+        
+        .flow-box {
+            position: relative;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            color: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 8px 16px rgba(52, 152, 219, 0.3);
+            min-width: 280px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        .flow-box:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(52, 152, 219, 0.4);
+        }
+        
+        .flow-box.data-collection {
+            background: linear-gradient(135deg, #e74c3c, #c0392b);
+        }
+        
+        .flow-box.preprocessing {
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+        }
+        
+        .flow-box.splitting {
+            background: linear-gradient(135deg, #9b59b6, #8e44ad);
+        }
+        
+        .flow-box.modeling {
+            background: linear-gradient(135deg, #1abc9c, #16a085);
+        }
+        
+        .flow-box.training {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+        }
+        
+        .flow-box.evaluation {
+            background: linear-gradient(135deg, #27ae60, #229954);
+        }
+        
+        .flow-box.deployment {
+            background: linear-gradient(135deg, #8e44ad, #9b59b6);
+        }
+        
+        .box-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .box-content {
+            font-size: 0.9em;
+            line-height: 1.5;
+            opacity: 0.95;
+        }
+        
+        .box-details {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+            font-size: 0.8em;
+        }
+        
+        .arrow {
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-top: 20px solid #34495e;
+            margin: 10px 0;
+        }
+        
+        .horizontal-arrow {
+            width: 0;
+            height: 0;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 20px solid #34495e;
+            margin: 0 15px;
+        }
+        
+        .process-icon {
+            font-size: 2em;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .models-container {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin: 20px 0;
+        }
+        
+        .model-chip {
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.8em;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .metric-item {
+            background: rgba(255,255,255,0.2);
+            padding: 8px;
+            border-radius: 8px;
+            font-size: 0.8em;
+            text-align: center;
+        }
+        
+        .decision-diamond {
+            width: 150px;
+            height: 150px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            transform: rotate(45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+            box-shadow: 0 8px 16px rgba(243, 156, 18, 0.3);
+        }
+        
+        .decision-text {
+            transform: rotate(-45deg);
+            color: white;
+            font-weight: 600;
+            text-align: center;
+            font-size: 0.9em;
+            line-height: 1.2;
+        }
+        
+        .parallel-flow {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        
+        .data-sources {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin: 20px 0;
+        }
+        
+        .data-source {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            min-width: 120px;
+        }
+        
+        .feedback-loop {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            width: 40px;
+            height: 40px;
+            border: 3px solid #f39c12;
+            border-radius: 50%;
+            border-top: 3px solid transparent;
+            animation: spin 2s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+        }
+        
+        .legend-text {
+            color: #2c3e50;
+            font-size: 0.9em;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Machine Learning Lifecycle</h1>
+            <p>Credit Risk Assessment - Diagrammatic Flow</p>
+        </div>
+        
+        <div class="flowchart">
+            <!-- Data Collection -->
+            <div class="flow-row">
+                <div class="flow-box data-collection">
+                    <span class="process-icon">📊</span>
+                    <div class="box-title">1. Data Collection</div>
+                    <div class="box-content">
+                        Multi-source data ingestion for comprehensive analysis
+                    </div>
+                    <div class="data-sources">
+                        <div class="data-source">
+                            <div>📋</div>
+                            <div>Application Records</div>
+                        </div>
+                        <div class="data-source">
+                            <div>💳</div>
+                            <div>Credit History</div>
+                        </div>
+                    </div>
+                    <div class="box-details">
+                        Format: CSV Files<br>
+                        Method: pd.read_csv()
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <!-- Data Preprocessing -->
+            <div class="flow-row">
+                <div class="flow-box preprocessing">
+                    <span class="process-icon">🔧</span>
+                    <div class="box-title">2. Data Preprocessing</div>
+                    <div class="box-content">
+                        Feature engineering and data transformation
+                    </div>
+                    <div class="box-details">
+                        • Label Generation (Bad Credit)<br>
+                        • Categorical Encoding<br>
+                        • Data Cleaning & Validation
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <!-- Data Splitting -->
+            <div class="flow-row">
+                <div class="flow-box splitting">
+                    <span class="process-icon">✂️</span>
+                    <div class="box-title">3. Data Splitting</div>
+                    <div class="box-content">
+                        Strategic data partitioning with class balancing
+                    </div>
+                    <div class="box-details">
+                        80% Train / 20% Test<br>
+                        Stratified Sampling<br>
+                        SMOTE Balancing
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <!-- Model Selection -->
+            <div class="flow-row">
+                <div class="flow-box modeling">
+                    <span class="process-icon">🤖</span>
+                    <div class="box-title">4. Model Selection</div>
+                    <div class="box-content">
+                        Multiple algorithm comparison and optimization
+                    </div>
+                    <div class="models-container">
+                        <div class="model-chip">Logistic Regression</div>
+                        <div class="model-chip">Random Forest</div>
+                        <div class="model-chip">XGBoost</div>
+                        <div class="model-chip">Decision Tree</div>
+                    </div>
+                    <div class="box-details">
+                        Class Weight Balancing<br>
+                        Hyperparameter Tuning
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <!-- Training -->
+            <div class="flow-row">
+                <div class="flow-box training">
+                    <span class="process-icon">🏋️</span>
+                    <div class="box-title">5. Model Training</div>
+                    <div class="box-content">
+                        Training with threshold optimization
+                    </div>
+                    <div class="box-details">
+                        • Threshold Analysis (100 points)<br>
+                        • Cross-validation<br>
+                        • Performance Monitoring<br>
+                        • Loss/Accuracy Tracking
+                    </div>
+                    <div class="feedback-loop"></div>
+                </div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <!-- Evaluation -->
+            <div class="flow-row">
+                <div class="flow-box evaluation">
+                    <span class="process-icon">📈</span>
+                    <div class="box-title">6. Model Evaluation</div>
+                    <div class="box-content">
+                        Comprehensive performance assessment
+                    </div>
+                    <div class="metrics-grid">
+                        <div class="metric-item">Accuracy</div>
+                        <div class="metric-item">Precision</div>
+                        <div class="metric-item">Recall</div>
+                        <div class="metric-item">F1-Score</div>
+                        <div class="metric-item">ROC AUC</div>
+                        <div class="metric-item">Confusion Matrix</div>
+                    </div>
+                    <div class="box-details">
+                        Visual Analysis: ROC, PR Curves
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <!-- Decision Point -->
+            <div class="flow-row">
+                <div class="decision-diamond">
+                    <div class="decision-text">
+                        Performance<br>
+                        Satisfactory?
+                    </div>
+                </div>
+            </div>
+            
+            <div class="arrow"></div>
+            
+            <!-- Deployment -->
+            <div class="flow-row">
+                <div class="flow-box deployment">
+                    <span class="process-icon">🚀</span>
+                    <div class="box-title">7. Model Deployment</div>
+                    <div class="box-content">
+                        Production-ready model persistence
+                    </div>
+                    <div class="box-details">
+                        • Best Model Selection (F1-Score)<br>
+                        • Optimal Threshold Saving<br>
+                        • Feature Schema Export<br>
+                        • Model Artifacts (.pkl)
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Parallel Outputs -->
+            <div class="flow-row">
+                <div class="parallel-flow">
+                    <div class="flow-box" style="background: linear-gradient(135deg, #95a5a6, #7f8c8d); min-width: 200px;">
+                        <span class="process-icon">💾</span>
+                        <div class="box-title">Model Artifacts</div>
+                        <div class="box-content">
+                            • Trained Model<br>
+                            • Threshold Config<br>
+                            • Feature Schema
+                        </div>
+                    </div>
+                    
+                    <div class="flow-box" style="background: linear-gradient(135deg, #95a5a6, #7f8c8d); min-width: 200px;">
+                        <span class="process-icon">📊</span>
+                        <div class="box-title">Performance Reports</div>
+                        <div class="box-content">
+                            • Model Comparison<br>
+                            • Evaluation Metrics<br>
+                            • Visualization Charts
+                        </div>
+                    </div>
+                    
+                    <div class="flow-box" style="background: linear-gradient(135deg, #95a5a6, #7f8c8d); min-width: 200px;">
+                        <span class="process-icon">🔄</span>
+                        <div class="box-title">Monitoring Setup</div>
+                        <div class="box-content">
+                            • Performance Tracking<br>
+                            • Model Drift Detection<br>
+                            • Retraining Pipeline
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Legend -->
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #e74c3c, #c0392b);"></div>
+                <span class="legend-text">Data Collection</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #f39c12, #e67e22);"></div>
+                <span class="legend-text">Preprocessing</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #9b59b6, #8e44ad);"></div>
+                <span class="legend-text">Data Preparation</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #1abc9c, #16a085);"></div>
+                <span class="legend-text">Modeling</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #34495e, #2c3e50);"></div>
+                <span class="legend-text">Training</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #27ae60, #229954);"></div>
+                <span class="legend-text">Evaluation</span>
+            </div>
+            <div class="legend-item">
+                <div class="legend-color" style="background: linear-gradient(135deg, #8e44ad, #9b59b6);"></div>
+                <span class="legend-text">Deployment</span>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
