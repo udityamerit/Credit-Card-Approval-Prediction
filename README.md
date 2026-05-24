@@ -137,12 +137,6 @@ Located in the `Images/` folder, these plots help analyze the performance of:
 
 * **Uditya Narayan Tiwari** – [GitHub](https://github.com/udityamerit)
 
-## 🤝 Collaborators
-
-* **Kirti Pratihar** - [GitHub](https://github.com/KirtiPratihar)
-* **Rutuja Kumbhar** - [GitHub](https://github.com/RutujaKumbhar17)
-* **Pranjal** - [GitHub](https://github.com/PranjalMerit)
-
 ---
 
 ## 📄 License
