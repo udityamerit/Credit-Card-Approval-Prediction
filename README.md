@@ -64,7 +64,7 @@ The application offers:
 
 1. **Clone the repository**  
    ```bash
-   git clone https://github.com/your-username/credit-card-approval-prediction.git
+   git clone https://github.com/udityamerit/credit-card-approval-prediction.git
    cd credit-card-approval-prediction
 
 
