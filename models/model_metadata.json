@@ -1,0 +1,134 @@
+{
+  "model_name": "Champion Soft-Voting Ensemble (Random Forest + Extra Trees)",
+  "feature_count": 27,
+  "features": [
+    "CODE_GENDER",
+    "FLAG_OWN_CAR",
+    "FLAG_OWN_REALTY",
+    "CNT_CHILDREN",
+    "AMT_INCOME_TOTAL",
+    "NAME_INCOME_TYPE",
+    "NAME_EDUCATION_TYPE",
+    "NAME_FAMILY_STATUS",
+    "NAME_HOUSING_TYPE",
+    "DAYS_BIRTH",
+    "DAYS_EMPLOYED",
+    "FLAG_MOBIL",
+    "FLAG_WORK_PHONE",
+    "FLAG_PHONE",
+    "FLAG_EMAIL",
+    "OCCUPATION_TYPE",
+    "CNT_FAM_MEMBERS",
+    "AGE_YEARS",
+    "EMPLOYED_YEARS",
+    "INCOME_PER_FAM_MEMBER",
+    "EMPLOYMENT_TO_AGE_RATIO",
+    "INCOME_TO_AGE_RATIO",
+    "CHILDREN_RATIO",
+    "TOTAL_CONTACTS",
+    "HAS_CAR_AND_REALTY",
+    "INCOME_TO_EDU_MEDIAN",
+    "TENURE_TO_OCC_MEDIAN"
+  ],
+  "roc_auc": 0.8467,
+  "gini": 0.6934,
+  "pr_auc": 0.1487,
+  "brier_score": 0.0218,
+  "best_threshold": 0.39,
+  "f1_score": 0.2868,
+  "accuracy_pct": 97.34,
+  "precision_pct": 26.17,
+  "recall_pct": 31.71,
+  "edu_medians": {
+    "Academic degree": 270000.0,
+    "Higher education": 202500.0,
+    "Incomplete higher": 180000.0,
+    "Lower secondary": 135000.0,
+    "Secondary / secondary special": 157500.0
+  },
+  "occ_medians": {
+    "Accountants": 5.713894592744696,
+    "Cleaning staff": 4.01368925393566,
+    "Cooking staff": 4.528405201916495,
+    "Core staff": 5.801505817932923,
+    "Drivers": 4.094455852156058,
+    "HR staff": 4.339493497604381,
+    "High skill tech staff": 5.924709103353867,
+    "IT staff": 2.625598904859685,
+    "Laborers": 5.631759069130732,
+    "Low-skill Laborers": 4.175222450376454,
+    "Managers": 6.781656399726215,
+    "Medicine staff": 8.985626283367557,
+    "Other": 0.0,
+    "Private service staff": 7.597535934291581,
+    "Realty agents": 6.877481177275839,
+    "Sales staff": 4.199863107460644,
+    "Secretaries": 5.94113620807666,
+    "Security staff": 3.9315537303216974,
+    "Waiters/barmen staff": 3.9534565366187544
+  },
+  "encoding_maps": {
+    "CODE_GENDER": {
+      "F": 0,
+      "M": 1
+    },
+    "FLAG_OWN_CAR": {
+      "N": 0,
+      "Y": 1
+    },
+    "FLAG_OWN_REALTY": {
+      "N": 0,
+      "Y": 1
+    },
+    "NAME_INCOME_TYPE": {
+      "Commercial associate": 0,
+      "Pensioner": 1,
+      "State servant": 2,
+      "Student": 3,
+      "Working": 4
+    },
+    "NAME_EDUCATION_TYPE": {
+      "Academic degree": 0,
+      "Higher education": 1,
+      "Incomplete higher": 2,
+      "Lower secondary": 3,
+      "Secondary / secondary special": 4
+    },
+    "NAME_FAMILY_STATUS": {
+      "Civil marriage": 0,
+      "Married": 1,
+      "Separated": 2,
+      "Single / not married": 3,
+      "Widow": 4
+    },
+    "NAME_HOUSING_TYPE": {
+      "Co-op apartment": 0,
+      "House / apartment": 1,
+      "Municipal apartment": 2,
+      "Office apartment": 3,
+      "Rented apartment": 4,
+      "With parents": 5
+    },
+    "OCCUPATION_TYPE": {
+      "Accountants": 0,
+      "Cleaning staff": 1,
+      "Cooking staff": 2,
+      "Core staff": 3,
+      "Drivers": 4,
+      "HR staff": 5,
+      "High skill tech staff": 6,
+      "IT staff": 7,
+      "Laborers": 8,
+      "Low-skill Laborers": 9,
+      "Managers": 10,
+      "Medicine staff": 11,
+      "Other": 12,
+      "Private service staff": 13,
+      "Realty agents": 14,
+      "Sales staff": 15,
+      "Secretaries": 16,
+      "Security staff": 17,
+      "Waiters/barmen staff": 18
+    }
+  }
+}

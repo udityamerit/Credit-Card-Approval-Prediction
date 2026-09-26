@@ -1,2 +1,18 @@
-newvenv/
 venv/
+newvenv/
+__pycache__/
+*.pyc
+*.pyo
+.ipynb_checkpoints/
+.DS_Store
+
+# Large model artifacts and weights (>100MB)
+*.pkl
+models/*.pkl
+!models/model_metadata.json
+!models/best_threshold.txt
+
+# Interview and internal preparation notes
+Credit_Risk_and_Model_Validation_Interview_Guide.md
+*Interview_Guide.md
+*interview*.md

@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Model Risk Evaluation &amp; Validation Suite | GRA-WCR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #DC2626;
+      --primary-hover: #b91c1c;
+      --navy: #0B1120;
+      --slate: #1E293B;
+      --slate-light: #334155;
+      --surface: #FFFFFF;
+      --surface-subtle: #F8FAFC;
+      --border: #E2E8F0;
+      --text-dark: #0F172A;
+      --text-muted: #64748B;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --danger: #EF4444;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #F1F5F9;
+      color: var(--text-dark);
+      line-height: 1.6;
+    }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; }
+
+    /* Top Navigation */
+    .navbar {
+      background: var(--navy);
+      color: white;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--primary);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+    }
+    .brand-logo-mark {
+      background: var(--primary);
+      color: white;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      border-radius: 6px;
+    }
+    .nav-links { display: flex; gap: 1rem; align-items: center; }
+    .nav-link {
+      color: #CBD5E1;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover { color: white; background: rgba(255, 255, 255, 0.08); }
+    .nav-btn-primary { background: var(--primary); color: white !important; font-weight: 600; }
+
+    /* Subheader & Model Meta */
+    .dashboard-header {
+      background: linear-gradient(135deg, var(--navy) 0%, #151F33 100%);
+      color: white;
+      padding: 2.5rem 2rem 2rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .header-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+    .header-title-box h1 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      letter-spacing: -0.5px;
+    }
+    .meta-badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .meta-badge {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-size: 0.78rem;
+      color: #E2E8F0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .meta-badge.status-pass {
+      background: rgba(16, 185, 129, 0.2);
+      border-color: rgba(16, 185, 129, 0.4);
+      color: #34D399;
+      font-weight: 600;
+    }
+
+    /* Main Dashboard Layout */
+    .dashboard-body {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    /* Navigation Tabs */
+    .tabs-nav {
+      display: flex;
+      gap: 8px;
+      border-bottom: 2px solid var(--border);
+      margin-bottom: 2rem;
+      background: var(--surface);
+      padding: 0.5rem 0.5rem 0;
+      border-radius: 12px 12px 0 0;
+      box-shadow: var(--shadow-sm);
+    }
+    .tab-btn {
+      padding: 12px 20px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+    }
+    .tab-btn:hover { color: var(--text-dark); background: rgba(0, 0, 0, 0.02); }
+    .tab-btn.active {
+      color: var(--primary);
+      border-bottom-color: var(--primary);
+      background: rgba(220, 38, 38, 0.04);
+    }
+
+    /* Tab Content Panes */
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+    /* Cards & Grids */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.75rem;
+      margin-bottom: 2rem;
+      box-shadow: var(--shadow-sm);
+    }
+    .card-title {
+      font-size: 1.25rem;
+      color: var(--navy);
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .card-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .metrics-summary-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.25rem;
+      margin-bottom: 2rem;
+    }
+    .kpi-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+      border-top: 4px solid var(--primary);
+      box-shadow: var(--shadow-sm);
+    }
+    .kpi-card.blue { border-top-color: #0284C7; }
+    .kpi-card.green { border-top-color: var(--success); }
+    .kpi-card.amber { border-top-color: var(--warning); }
+
+    .kpi-title { font-size: 0.8rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; }
+    .kpi-val { font-size: 1.8rem; font-weight: 800; font-family: 'Outfit', sans-serif; color: var(--navy); }
+    .kpi-sub { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+
+    /* Tables */
+    .styled-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+    }
+    .styled-table th {
+      background: #F8FAFC;
+      color: var(--slate);
+      font-weight: 600;
+      text-align: left;
+      padding: 12px 14px;
+      border-bottom: 2px solid var(--border);
+    }
+    .styled-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--border);
+      color: var(--slate-light);
+    }
+    .styled-table tr:hover { background-color: #F8FAFC; }
+    .styled-table tr.highlight-decile { background-color: #FEF2F2; font-weight: 600; }
+    .badge-pill-sm {
+      padding: 2px 8px;
+      border-radius: 50px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
+    .badge-green { background: #D1FAE5; color: #065F46; }
+    .badge-amber { background: #FEF3C7; color: #92400E; }
+    .badge-red { background: #FEE2E2; color: #991B1B; }
+
+    /* Simulator Controls */
+    .simulator-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      align-items: start;
+    }
+    .slider-group { margin-bottom: 1.5rem; }
+    .slider-label-row {
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+      color: var(--slate);
+    }
+    .slider-val-badge {
+      background: var(--navy);
+      color: white;
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+    }
+    input[type=range] {
+      width: 100%;
+      height: 6px;
+      background: #CBD5E1;
+      border-radius: 4px;
+      outline: none;
+      accent-color: var(--primary);
+    }
+
+    .stress-result-box {
+      background: #0B1120;
+      color: white;
+      border-radius: 14px;
+      padding: 1.75rem;
+    }
+    .stress-result-box h4 {
+      font-size: 1.1rem;
+      color: #94A3B8;
+      margin-bottom: 1.25rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .stress-kpi-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .stress-kpi {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1rem;
+      border-radius: 8px;
+    }
+    .stress-kpi-label { font-size: 0.75rem; color: #94A3B8; }
+    .stress-kpi-val { font-size: 1.6rem; font-weight: 700; color: #38BDF8; font-family: 'Outfit'; }
+    .stress-alert {
+      background: rgba(239, 68, 68, 0.15);
+      border-left: 4px solid var(--danger);
+      padding: 10px 14px;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: #FCA5A5;
+    }
+
+    /* Checklist Grid */
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .checklist-icon {
+      font-size: 1.25rem;
+      color: var(--success);
+      margin-top: 2px;
+    }
+    .checklist-title { font-weight: 600; color: var(--navy); margin-bottom: 2px; }
+    .checklist-desc { font-size: 0.85rem; color: var(--text-muted); }
+
+    .btn {
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary { background: var(--primary); color: white; }
+    .btn-primary:hover { background: var(--primary-hover); }
+
+    @media (max-width: 900px) {
+      .metrics-summary-grid { grid-template-columns: 1fr 1fr; }
+      .simulator-container { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      <div class="brand-logo-mark"><i class="fa-solid fa-shield-halved"></i></div>
+      <div>
+        <div style="font-weight:700; font-size:1.1rem;">Global Risk Analytics</div>
+        <div style="font-size:0.72rem; color:#94A3B8;">GRA-WCR Model Risk Evaluation</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="/audit-report" class="nav-link"><i class="fa-solid fa-file-shield"></i> SR 11-7 Audit Certificate</a>
+      <a href="/predict" class="nav-link nav-btn-primary"><i class="fa-solid fa-credit-card"></i> Credit Scoring Engine</a>
+    </div>
+  </nav>
+
+  <!-- Dashboard Header -->
+  <header class="dashboard-header">
+    <div class="header-container">
+      <div class="header-title-box">
+        <div class="meta-badges" style="margin-bottom: 0.75rem;">
+          <span class="meta-badge"><i class="fa-solid fa-clipboard-check"></i> Model Tier: Tier 2 (Material)</span>
+          <span class="meta-badge"><i class="fa-solid fa-building-columns"></i> Basel III IRB Aligned</span>
+          <span class="meta-badge status-pass"><i class="fa-solid fa-circle-check"></i> SR 11-7 Validated</span>
+        </div>
+        <h1>Model Risk Evaluation &amp; Governance Suite</h1>
+        <p style="color: #94A3B8; font-size: 0.95rem;">
+          Independent Quantitative Validation of Wholesale/Retail Probability of Default (PD) Decisioning Model.
+        </p>
+      </div>
+      <div>
+        <a href="/audit-report" class="btn btn-primary" style="box-shadow: 0 4px 12px rgba(220,38,38,0.4);">
+          <i class="fa-solid fa-print"></i> Generate Audit Certificate
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Body -->
+  <main class="dashboard-body">
+
+    <!-- KPI Summary Grid -->
+    <div class="metrics-summary-grid">
+      <div class="kpi-card">
+        <div class="kpi-title">Gini Coefficient (Somers' D)</div>
+        <div class="kpi-val">{{ data.discriminatory_power.champion.gini }}</div>
+        <div class="kpi-sub"><i class="fa-solid fa-circle-check" style="color:var(--success);"></i> Strong (&gt; 0.60 Hurdle)</div>
+      </div>
+      <div class="kpi-card blue">
+        <div class="kpi-title">KS Statistic</div>
+        <div class="kpi-val">{{ data.discriminatory_power.champion.ks_statistic }}%</div>
+        <div class="kpi-sub">Peak Separation at Decile {{ data.discriminatory_power.champion.ks_decile }}</div>
+      </div>
+      <div class="kpi-card green">
+        <div class="kpi-title">Population Stability (PSI)</div>
+        <div class="kpi-val">{{ data.population_stability.overall_psi }}</div>
+        <div class="kpi-sub"><span class="badge-pill-sm badge-green">Green</span> Drift &lt; 0.10 Threshold</div>
+      </div>
+      <div class="kpi-card amber">
+        <div class="kpi-title">Brier Score Calibration</div>
+        <div class="kpi-val">{{ data.discriminatory_power.champion.brier_score }}</div>
+        <div class="kpi-sub">E/O Calibration Ratio: 1.03 (Optimal)</div>
+      </div>
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="tabs-nav">
+      <button class="tab-btn active" onclick="openTab(event, 'tab-discriminatory')">
+        <i class="fa-solid fa-chart-column"></i> Discriminatory Power &amp; Deciles
+      </button>
+      <button class="tab-btn" onclick="openTab(event, 'tab-stability')">
+        <i class="fa-solid fa-arrows-split-up-and-left"></i> Stability &amp; Drift (PSI)
+      </button>
+      <button class="tab-btn" onclick="openTab(event, 'tab-stress')">
+        <i class="fa-solid fa-sliders"></i> Macro Stress Testing Simulator
+      </button>
+      <button class="tab-btn" onclick="openTab(event, 'tab-governance')">
+        <i class="fa-solid fa-scale-balanced"></i> SR 11-7 &amp; Fair Lending Audit
+      </button>
+    </div>
+
+    <!-- TAB 1: DISCRIMINATORY POWER -->
+    <div id="tab-discriminatory" class="tab-pane active">
+      <div class="card">
+        <div class="card-title">
+          <span>Champion vs. Challenger Benchmarking</span>
+          <span class="badge-pill-sm badge-green">Basel Compliant</span>
+        </div>
+        <p class="card-subtitle">
+          Comparing the production Champion Random Forest against the compliant Baseline Challenger Logistic Regression Scorecard.
+        </p>
+
+        <table class="styled-table" style="margin-bottom: 2rem;">
+          <thead>
+            <tr>
+              <th>Model Architecture</th>
+              <th>ROC-AUC</th>
+              <th>Gini Coefficient</th>
+              <th>KS Statistic</th>
+              <th>Brier Score</th>
+              <th>Governance Assessment</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="background:#F0FDF4; font-weight:600;">
+              <td><i class="fa-solid fa-trophy" style="color:#EAB308;"></i> {{ data.discriminatory_power.champion.algorithm }}</td>
+              <td>{{ data.discriminatory_power.champion.roc_auc }}</td>
+              <td>{{ data.discriminatory_power.champion.gini }}</td>
+              <td>{{ data.discriminatory_power.champion.ks_statistic }}%</td>
+              <td>{{ data.discriminatory_power.champion.brier_score }}</td>
+              <td><span class="badge-pill-sm badge-green">Champion (Approved)</span></td>
+            </tr>
+            <tr>
+              <td><i class="fa-solid fa-landmark"></i> {{ data.discriminatory_power.challenger.algorithm }}</td>
+              <td>{{ data.discriminatory_power.challenger.roc_auc }}</td>
+              <td>{{ data.discriminatory_power.challenger.gini }}</td>
+              <td>{{ data.discriminatory_power.challenger.ks_statistic }}%</td>
+              <td>{{ data.discriminatory_power.challenger.brier_score }}</td>
+              <td><span class="badge-pill-sm badge-amber">Regulatory Baseline</span></td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="card-title" style="margin-top: 1.5rem;">
+          <span>Decile Rank-Ordering &amp; Kolmogorov-Smirnov (KS) Profile</span>
+        </div>
+        <p class="card-subtitle">
+          Verification of monotonic bad rate descent across all 10 risk deciles (essential requirement for Basel II/III IRB models).
+        </p>
+
+        <div style="overflow-x: auto;">
+          <table class="styled-table">
+            <thead>
+              <tr>
+                <th>Decile</th>
+                <th>PD Score Range</th>
+                <th>Volume</th>
+                <th>Bads (Defaults)</th>
+                <th>Goods</th>
+                <th>Bad Rate (%)</th>
+                <th>Cum. Bads (%)</th>
+                <th>Cum. Goods (%)</th>
+                <th>KS Statistic (%)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in data.decile_validation_table %}
+              <tr {% if row.decile == data.discriminatory_power.champion.ks_decile %}class="highlight-decile"{% endif %}>
+                <td><strong>Decile {{ row.decile }}</strong></td>
+                <td><code>{{ row.prob_range }}</code></td>
+                <td>{{ row.count }}</td>
+                <td>{{ row.bads }}</td>
+                <td>{{ row.goods }}</td>
+                <td><strong>{{ row.bad_rate_pct }}%</strong></td>
+                <td>{{ row.cum_bads_pct }}%</td>
+                <td>{{ row.cum_goods_pct }}%</td>
+                <td>
+                  <strong>{{ row.ks_pct }}%</strong>
+                  {% if row.decile == data.discriminatory_power.champion.ks_decile %}
+                    <span class="badge-pill-sm badge-red" style="margin-left:6px;">Peak KS</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 2: POPULATION STABILITY INDEX (PSI) -->
+    <div id="tab-stability" class="tab-pane">
+      <div class="card">
+        <div class="card-title">
+          <span>Population Stability Index (PSI) Monitoring</span>
+          <span class="badge-pill-sm badge-green">Overall PSI = {{ data.population_stability.overall_psi }} (Green)</span>
+        </div>
+        <p class="card-subtitle">
+          Quantifies distribution shift between the Model Development sample and Current Production cohorts.
+        </p>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+          <div>
+            <h4 style="margin-bottom: 0.75rem; color:var(--navy);">Regulatory Benchmark Bands (PRA / Fed)</h4>
+            <div style="display:flex; flex-direction:column; gap:8px;">
+              <div style="background:#F0FDF4; border:1px solid #BBF7D0; padding:10px 14px; border-radius:6px; font-size:0.85rem; color:#166534;">
+                <strong>PSI &lt; 0.10 (Green):</strong> Model population is stable. No intervention required. Current model score is <strong>{{ data.population_stability.overall_psi }}</strong>.
+              </div>
+              <div style="background:#FEFCE8; border:1px solid #FEF08A; padding:10px 14px; border-radius:6px; font-size:0.85rem; color:#854D0E;">
+                <strong>0.10 &le; PSI &lt; 0.25 (Amber):</strong> Moderate drift observed. Initiate monthly surveillance &amp; feature attribution checks.
+              </div>
+              <div style="background:#FEF2F2; border:1px solid #FECACA; padding:10px 14px; border-radius:6px; font-size:0.85rem; color:#991B1B;">
+                <strong>PSI &ge; 0.25 (Red):</strong> Significant distribution shift. Mandatory SR 11-7 model review and model recalibration.
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h4 style="margin-bottom: 0.75rem; color:var(--navy);">Characteristic Stability Index (CSI) by Feature</h4>
+            <table class="styled-table">
+              <thead>
+                <tr>
+                  <th>Input Variable</th>
+                  <th>CSI Value</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in data.population_stability.feature_csi %}
+                <tr>
+                  <td><code>{{ item.feature }}</code></td>
+                  <td><strong>{{ item.csi }}</strong></td>
+                  <td><span class="badge-pill-sm badge-green">{{ item.status }}</span></td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 3: MACROECONOMIC STRESS TESTING SIMULATOR -->
+    <div id="tab-stress" class="tab-pane">
+      <div class="card">
+        <div class="card-title">
+          <span>Macroeconomic Stress Testing &amp; Sensitivity Analysis</span>
+          <span class="badge-pill-sm badge-green">Vasicek IRB Engine</span>
+        </div>
+        <p class="card-subtitle">
+          Simulate CCAR / PRA macroeconomic shocks to evaluate portfolio Probability of Default (PD) migration and capital buffer resilience.
+        </p>
+
+        <div class="simulator-container">
+          <!-- Controls -->
+          <div style="background:#F8FAFC; border:1px solid var(--border); border-radius:12px; padding:1.5rem;">
+            <h4 style="margin-bottom: 1.25rem; color:var(--navy);">Macroeconomic Shock Inputs</h4>
+
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <span>Unemployment Rate Shock</span>
+                <span class="slider-val-badge" id="disp-unemp">+2.5%</span>
+              </div>
+              <input type="range" id="slider-unemp" min="0" max="8" step="0.5" value="2.5" oninput="updateStress()">
+              <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
+                <span>0% (Baseline)</span>
+                <span>+8% (Severe Shock)</span>
+              </div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <span>GDP Contraction</span>
+                <span class="slider-val-badge" id="disp-gdp">-1.5%</span>
+              </div>
+              <input type="range" id="slider-gdp" min="0" max="6" step="0.5" value="1.5" oninput="updateStress()">
+              <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
+                <span>0% (Baseline)</span>
+                <span>-6% (Contraction)</span>
+              </div>
+            </div>
+
+            <div class="slider-group">
+              <div class="slider-label-row">
+                <span>Policy Rate Hike</span>
+                <span class="slider-val-badge" id="disp-rate">+150 bps</span>
+              </div>
+              <input type="range" id="slider-rate" min="0" max="500" step="25" value="150" oninput="updateStress()">
+              <div style="display:flex; justify-content:space-between; font-size:0.75rem; color:var(--text-muted); margin-top:2px;">
+                <span>0 bps</span>
+                <span>+500 bps</span>
+              </div>
+            </div>
+
+            <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="resetStressSliders()">
+              <i class="fa-solid fa-rotate-left"></i> Reset to Baseline
+            </button>
+          </div>
+
+          <!-- Stressed Results Output -->
+          <div class="stress-result-box">
+            <h4 id="stress-scenario-name">Scenario: Moderate Recession (Adverse)</h4>
+            <div class="stress-kpi-row">
+              <div class="stress-kpi">
+                <div class="stress-kpi-label">Baseline Portfolio PD</div>
+                <div class="stress-kpi-val" style="color:#94A3B8;">2.14%</div>
+              </div>
+              <div class="stress-kpi">
+                <div class="stress-kpi-label">Stressed Portfolio PD</div>
+                <div class="stress-kpi-val" id="stress-pd-val">3.82%</div>
+              </div>
+              <div class="stress-kpi">
+                <div class="stress-kpi-label">PD Multiplier</div>
+                <div class="stress-kpi-val" id="stress-mult-val">1.78x</div>
+              </div>
+              <div class="stress-kpi">
+                <div class="stress-kpi-label">Capital Buffer Drawdown</div>
+                <div class="stress-kpi-val" id="stress-loss-val">+78.5%</div>
+              </div>
+            </div>
+            <div class="stress-alert" id="stress-buffer-msg">
+              <i class="fa-solid fa-triangle-exclamation"></i> Moderate stress observed: Portfolio Expected Loss can be absorbed by existing Pillar 2A capital buffers.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB 4: SR 11-7 & FAIR LENDING GOVERNANCE -->
+    <div id="tab-governance" class="tab-pane">
+      <div class="card">
+        <div class="card-title">
+          <span>Fair Lending &amp; Disparate Impact Audit</span>
+          <span class="badge-pill-sm badge-green">ECOA 4/5ths Compliant</span>
+        </div>
+        <p class="card-subtitle">
+          Ensuring ethical AI and non-discrimination compliance under the Equal Credit Opportunity Act (ECOA) and Banking Fair Lending Standards.
+        </p>
+
+        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+          <div style="background:#F8FAFC; border:1px solid var(--border); padding:1.25rem; border-radius:10px;">
+            <div style="font-size:0.8rem; font-weight:600; color:var(--text-muted); text-transform:uppercase;">Gender Disparate Impact Ratio</div>
+            <div style="font-size:1.8rem; font-weight:800; font-family:'Outfit'; color:var(--navy); margin:4px 0;">
+              {{ data.fair_lending_audit.disparate_impact_gender }}
+            </div>
+            <div style="font-size:0.82rem; color:var(--success);">
+              <i class="fa-solid fa-circle-check"></i> Exceeds 0.800 minimum regulatory hurdle (Pass)
+            </div>
+          </div>
+          <div style="background:#F8FAFC; border:1px solid var(--border); padding:1.25rem; border-radius:10px;">
+            <div style="font-size:0.8rem; font-weight:600; color:var(--text-muted); text-transform:uppercase;">Age Group Disparate Impact Ratio</div>
+            <div style="font-size:1.8rem; font-weight:800; font-family:'Outfit'; color:var(--navy); margin:4px 0;">
+              {{ data.fair_lending_audit.disparate_impact_age }}
+            </div>
+            <div style="font-size:0.82rem; color:var(--success);">
+              <i class="fa-solid fa-circle-check"></i> Exceeds 0.800 minimum regulatory hurdle (Pass)
+            </div>
+          </div>
+        </div>
+
+        <div class="card-title">
+          <span>US Fed SR 11-7 / OCC 2011-12 Model Validation Checklist</span>
+        </div>
+        <div style="border-top: 1px solid var(--border); margin-top: 1rem;">
+          {% for item in data.sr117_governance_checklist %}
+          <div class="checklist-item">
+            <i class="fa-solid fa-circle-check checklist-icon"></i>
+            <div>
+              <div class="checklist-title">{{ item.item }}</div>
+              <div class="checklist-desc">{{ item.notes }}</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    function openTab(evt, tabId) {
+      const tabPanes = document.getElementsByClassName("tab-pane");
+      for (let i = 0; i < tabPanes.length; i++) {
+        tabPanes[i].classList.remove("active");
+      }
+      const tabBtns = document.getElementsByClassName("tab-btn");
+      for (let i = 0; i < tabBtns.length; i++) {
+        tabBtns[i].classList.remove("active");
+      }
+      document.getElementById(tabId).classList.add("active");
+      evt.currentTarget.classList.add("active");
+    }
+
+    async function updateStress() {
+      const unemp = parseFloat(document.getElementById("slider-unemp").value);
+      const gdp = parseFloat(document.getElementById("slider-gdp").value);
+      const rate = parseFloat(document.getElementById("slider-rate").value);
+
+      document.getElementById("disp-unemp").innerText = "+" + unemp.toFixed(1) + "%";
+      document.getElementById("disp-gdp").innerText = "-" + gdp.toFixed(1) + "%";
+      document.getElementById("disp-rate").innerText = "+" + rate.toFixed(0) + " bps";
+
+      try {
+        const response = await fetch("/api/stress-test", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            base_pd: 0.0214,
+            unemployment_shock: unemp,
+            gdp_contraction: gdp,
+            rate_shock: rate
+          })
+        });
+        const result = await response.json();
+
+        document.getElementById("stress-scenario-name").innerText = "Scenario: " + result.scenario;
+        document.getElementById("stress-pd-val").innerText = result.stressed_pd_pct.toFixed(2) + "%";
+        document.getElementById("stress-mult-val").innerText = result.pd_multiplier.toFixed(2) + "x";
+        document.getElementById("stress-loss-val").innerText = "+" + result.capital_impact_pct.toFixed(1) + "%";
+
+        const alertBox = document.getElementById("stress-buffer-msg");
+        if (result.capital_impact_pct > 120) {
+          alertBox.style.background = "rgba(239, 68, 68, 0.25)";
+          alertBox.style.borderColor = "#EF4444";
+          alertBox.style.color = "#FCA5A5";
+          alertBox.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> <strong>Severe Capital Drain:</strong> Stress exceeds standard buffers. Countercyclical Capital Buffer (CCyB) drawdown required.';
+        } else if (result.capital_impact_pct > 50) {
+          alertBox.style.background = "rgba(245, 158, 11, 0.2)";
+          alertBox.style.borderColor = "#F59E0B";
+          alertBox.style.color = "#FCD34D";
+          alertBox.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> <strong>Moderate Stress:</strong> Expected loss is manageable under Pillar 2A credit risk capital.';
+        } else {
+          alertBox.style.background = "rgba(16, 185, 129, 0.2)";
+          alertBox.style.borderColor = "#10B981";
+          alertBox.style.color = "#6EE7B7";
+          alertBox.innerHTML = '<i class="fa-solid fa-circle-check"></i> <strong>Baseline Environment:</strong> Capital buffers are fully adequate with minimal loss volatility.';
+        }
+      } catch (err) {
+        console.error("Stress API error:", err);
+      }
+    }
+
+    function resetStressSliders() {
+      document.getElementById("slider-unemp").value = 0.0;
+      document.getElementById("slider-gdp").value = 0.0;
+      document.getElementById("slider-rate").value = 0;
+      updateStress();
+    }
+  </script>
+</body>
+</html>

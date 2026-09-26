@@ -2,307 +2,371 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Credit Card Approval Prediction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Credit Application &amp; Risk Scoring Engine | GRA-WCR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     :root {
-      --primary-bg: #d91c1c;
-      --header-bg: #002147;
-      --accent-color: #ffc107;
-      --btn-gradient: linear-gradient(to right, #002147, #1e3c72);
-      --input-bg: rgba(255, 255, 255, 0.5);
-      --border-color: #d6dee6;
+      --primary: #DC2626;
+      --primary-hover: #b91c1c;
+      --navy: #0B1120;
+      --slate: #1E293B;
+      --border: #CBD5E1;
+      --surface: #FFFFFF;
+      --surface-subtle: #F8FAFC;
+      --text-dark: #0F172A;
+      --text-muted: #64748B;
     }
 
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: url('/static/credits-card.jpg') no-repeat center center fixed;
-      background-size: cover;
+      font-family: 'Inter', sans-serif;
+      background-color: #F1F5F9;
+      color: var(--text-dark);
       min-height: 100vh;
-      color: #333;
-      backdrop-filter: blur(2px);
     }
+    h1, h2, h3, h4 { font-family: 'Outfit', sans-serif; }
 
-    header {
-      background: var(--header-bg);
+    /* Navbar */
+    .navbar {
+      background: var(--navy);
       color: white;
-      text-align: center;
-      padding: 2rem 1rem;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      position: relative;
-    }
-
-    header h1 {
-      font-size: 2rem;
-      margin: 0;
-      letter-spacing: 1px;
-    }
-
-    .home-button {
-      position: absolute;
-      top: 1.5rem;
-      right: 1.5rem;
-      background: var(--accent-color);
-      border: none;
-      padding: 10px 16px;
-      font-size: 0.9rem;
-      font-weight: bold;
-      border-radius: 6px;
-      color: #002147;
-      cursor: pointer;
-      text-decoration: none;
-      transition: background 0.3s ease;
-    }
-
-    .home-button:hover {
-      background: #e0a800;
-    }
-
-    .container {
-      max-width: 960px;
-      margin: 40px auto;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 40px;
-      border-radius: 15px;
-      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
-    }
-
-    .form-row {
+      padding: 1rem 2rem;
       display: flex;
-      flex-wrap: wrap;
-      gap: 24px;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 2px solid var(--primary);
     }
-
-    .form-col {
-      flex: 1 1 45%;
-    }
-
-    .form-group {
-      margin-bottom: 20px;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: 600;
-      color: #002147;
-    }
-
-    input,
-    select {
-      width: 100%;
-      padding: 12px 14px;
-      border-radius: 8px;
-      border: 1.5px solid var(--border-color);
-      font-size: 1rem;
-      background-color: var(--input-bg);
-      box-sizing: border-box;
-      transition: all 0.3s ease;
-    }
-
-    input:focus,
-    select:focus {
-      outline: none;
-      border-color: #1e3c72;
-      box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.2);
-    }
-
-    .btn {
-      display: block;
-      width: 100%;
-      padding: 14px;
-      font-size: 1rem;
-      background: var(--btn-gradient);
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
       color: white;
-      font-weight: bold;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: 0.3s ease;
-      margin-top: 10px;
     }
-
-    .btn:hover {
-      background: linear-gradient(to right, #1e3c72, #002147);
-      transform: translateY(-2px);
-    }
-
-    .result {
-      margin-top: 30px;
-      padding: 20px;
-      border-radius: 8px;
-      font-weight: bold;
+    .brand-logo-mark {
+      background: var(--primary);
+      color: white;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       font-size: 1.1rem;
+      border-radius: 6px;
+    }
+    .nav-links { display: flex; gap: 1rem; align-items: center; }
+    .nav-link {
+      color: #CBD5E1;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all 0.2s;
+    }
+    .nav-link:hover { color: white; background: rgba(255, 255, 255, 0.08); }
+
+    /* Form Container */
+    .form-wrapper {
+      max-width: 980px;
+      margin: 2.5rem auto 4rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+    }
+    .form-header {
+      background: linear-gradient(135deg, var(--navy) 0%, #151F33 100%);
+      color: white;
+      padding: 2.5rem;
+      border-bottom: 3px solid var(--primary);
+    }
+    .form-header h1 {
+      font-size: 1.85rem;
+      margin-bottom: 0.5rem;
+    }
+    .form-header p {
+      color: #94A3B8;
+      font-size: 0.95rem;
+      max-width: 700px;
+    }
+    .policy-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(220, 38, 38, 0.2);
+      border: 1px solid rgba(220, 38, 38, 0.4);
+      color: #FCA5A5;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-top: 1rem;
     }
 
-    .good {
-      background-color: #d4edda;
-      color: #155724;
-      border-left: 6px solid #28a745;
+    .form-body { padding: 2.5rem; }
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--navy);
+      border-bottom: 2px solid #F1F5F9;
+      padding-bottom: 0.5rem;
+      margin-bottom: 1.5rem;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .section-title:first-of-type { margin-top: 0; }
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .form-grid.three-col { grid-template-columns: repeat(3, 1fr); }
+
+    .form-group { display: flex; flex-direction: column; }
+    label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--slate);
+      margin-bottom: 6px;
+    }
+    label span.tech-tag {
+      font-size: 0.72rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      font-family: monospace;
+    }
+    input, select {
+      padding: 10px 14px;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.92rem;
+      color: var(--text-dark);
+      background: white;
+      transition: all 0.2s ease;
+      font-family: 'Inter', sans-serif;
+    }
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.12);
     }
 
-    .bad {
-      background-color: #f8d7da;
-      color: #721c24;
-      border-left: 6px solid #dc3545;
+    .btn-submit {
+      background: var(--primary);
+      color: white;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      margin-top: 1.5rem;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
     }
-
-    .error {
-      color: red;
-      font-weight: bold;
-      margin-top: 15px;
+    .btn-submit:hover {
+      background: var(--primary-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 18px rgba(220, 38, 38, 0.4);
     }
 
     @media (max-width: 768px) {
-      .form-col {
-        flex: 1 1 100%;
-      }
-
-      .container {
-        padding: 20px;
-      }
-
-      .home-button {
-        top: 1rem;
-        right: 1rem;
-        padding: 8px 12px;
-      }
+      .form-grid, .form-grid.three-col { grid-template-columns: 1fr; }
+      .form-body, .form-header { padding: 1.5rem; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Credit Card Approval Prediction</h1>
-    <a href="/" class="home-button">🏠 Home</a>
-  </header>
 
-  <div class="container">
-    <form method="POST" action="/result">
-      <div class="form-row">
-        <div class="form-col">
-          <!-- form inputs left side -->
-          <div class="form-group">
-            <label for="CODE_GENDER">Gender</label>
-            <select name="CODE_GENDER" required>
-              <option value="M">Male</option>
-              <option value="F">Female</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="FLAG_OWN_CAR">Owns a Car?</label>
-            <select name="FLAG_OWN_CAR" required>
-              <option value="Y">Yes</option>
-              <option value="N">No</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="FLAG_OWN_REALTY">Owns Realty?</label>
-            <select name="FLAG_OWN_REALTY" required>
-              <option value="Y">Yes</option>
-              <option value="N">No</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="CNT_CHILDREN">Number of Children</label>
-            <input type="number" name="CNT_CHILDREN" required>
-          </div>
-          <div class="form-group">
-            <label for="AMT_INCOME_TOTAL">Annual Income</label>
-            <input type="number" name="AMT_INCOME_TOTAL" step="0.01" required>
-          </div>
-          <div class="form-group">
-            <label for="NAME_INCOME_TYPE">Income Type</label>
-            <select name="NAME_INCOME_TYPE" required>
-              <option>Working</option>
-              <option>Pensioner</option>
-              <option>Commercial associate</option>
-              <option>State servant</option>
-            </select>
-          </div>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      <div class="brand-logo-mark"><i class="fa-solid fa-shield-halved"></i></div>
+      <div>
+        <div style="font-weight:700; font-size:1.05rem;">Global Risk Analytics</div>
+        <div style="font-size:0.72rem; color:#94A3B8;">Credit Decisioning &amp; PD Scoring</div>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="/" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
+      <a href="/model-risk-evaluation" class="nav-link"><i class="fa-solid fa-chart-line"></i> Model Validation Suite</a>
+      <a href="/audit-report" class="nav-link"><i class="fa-solid fa-file-shield"></i> SR 11-7 Audit Certificate</a>
+    </div>
+  </nav>
+
+  <!-- Form Wrapper -->
+  <div class="form-wrapper">
+    <div class="form-header">
+      <h1>Credit Application &amp; Probability of Default (PD) Engine</h1>
+      <p>
+        Submit applicant demographic, financial, and employment parameters. The quantitative scoring engine evaluates default likelihood, assigns standard Credit Bureau Points (300-850), and tests macroeconomic stress sensitivity.
+      </p>
+      <div class="policy-pill">
+        <i class="fa-solid fa-shield-halved"></i> Active Policy Cutoff Threshold: {{ threshold_percent }}% PD (Cost-Calibrated)
+      </div>
+    </div>
+
+    <form class="form-body" action="/result" method="POST">
+
+      <!-- Section 1: Financial & Asset Profile -->
+      <div class="section-title">
+        <i class="fa-solid fa-wallet" style="color:var(--primary);"></i> 1. Financial &amp; Asset Capacity
+      </div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Total Annual Income ($) <span class="tech-tag">[AMT_INCOME_TOTAL]</span></label>
+          <input type="number" name="AMT_INCOME_TOTAL" value="180000" min="10000" step="1000" required>
         </div>
-
-        <div class="form-col">
-          <!-- form inputs right side -->
-          <div class="form-group">
-            <label for="NAME_EDUCATION_TYPE">Education Type</label>
-            <select name="NAME_EDUCATION_TYPE" required>
-              <option>Secondary</option>
-              <option>Higher</option>
-              <option>Incomplete</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="NAME_FAMILY_STATUS">Family Status</label>
-            <select name="NAME_FAMILY_STATUS" required>
-              <option>Single</option>
-              <option>Married</option>
-              <option>Divorced</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="NAME_HOUSING_TYPE">Housing Type</label>
-            <select name="NAME_HOUSING_TYPE" required>
-              <option>House</option>
-              <option>Rented</option>
-              <option>Co-op</option>
-              <option>With parents</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="AGE_YEARS">Age (in years)</label>
-            <input type="number" name="AGE_YEARS" required>
-          </div>
-          <div class="form-group">
-            <label for="EMPLOYED_YEARS">Years Employed</label>
-            <input type="number" name="EMPLOYED_YEARS" step="0.1" required>
-          </div>
-          <div class="form-group">
-            <label for="CNT_FAM_MEMBERS">Number of Family Members</label>
-            <input type="number" name="CNT_FAM_MEMBERS" step="0.1" required>
-          </div>
+        <div class="form-group">
+          <label>Income Source / Category <span class="tech-tag">[NAME_INCOME_TYPE]</span></label>
+          <select name="NAME_INCOME_TYPE" required>
+            <option value="Working" selected>Working (Salaried Corporate / Commercial)</option>
+            <option value="Commercial associate">Commercial Associate / Business Owner</option>
+            <option value="State servant">State Servant / Public Sector</option>
+            <option value="Pensioner">Pensioner / Retired</option>
+            <option value="Student">Student</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Real Estate Ownership <span class="tech-tag">[FLAG_OWN_REALTY]</span></label>
+          <select name="FLAG_OWN_REALTY" required>
+            <option value="Y" selected>Yes - Owns Real Property / Residence</option>
+            <option value="N">No - Tenant / Non-owner</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Automobile Ownership <span class="tech-tag">[FLAG_OWN_CAR]</span></label>
+          <select name="FLAG_OWN_CAR" required>
+            <option value="Y">Yes - Owns Vehicle</option>
+            <option value="N" selected>No Vehicle</option>
+          </select>
         </div>
       </div>
 
-      <div class="form-row">
-        <div class="form-col">
-          <!-- contact info -->
-          <div class="form-group">
-            <label for="FLAG_WORK_PHONE">Has Work Phone?</label>
-            <select name="FLAG_WORK_PHONE" required>
-              <option value="1">Yes</option>
-              <option value="0">No</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="FLAG_PHONE">Has Phone?</label>
-            <select name="FLAG_PHONE" required>
-              <option value="1">Yes</option>
-              <option value="0">No</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label for="FLAG_EMAIL">Has Email?</label>
-            <select name="FLAG_EMAIL" required>
-              <option value="1">Yes</option>
-              <option value="0">No</option>
-            </select>
-          </div>
+      <!-- Section 2: Employment & Demographics -->
+      <div class="section-title">
+        <i class="fa-solid fa-user-tie" style="color:var(--primary);"></i> 2. Demographics &amp; Employment Tenor
+      </div>
+      <div class="form-grid three-col">
+        <div class="form-group">
+          <label>Age in Years <span class="tech-tag">[DAYS_BIRTH]</span></label>
+          <input type="number" name="AGE_YEARS" value="34" min="18" max="90" required>
+        </div>
+        <div class="form-group">
+          <label>Employment Tenor (Years) <span class="tech-tag">[DAYS_EMPLOYED]</span></label>
+          <input type="number" name="EMPLOYED_YEARS" value="5.5" min="0" max="60" step="0.5" required>
+        </div>
+        <div class="form-group">
+          <label>Gender <span class="tech-tag">[CODE_GENDER]</span></label>
+          <select name="CODE_GENDER" required>
+            <option value="M" selected>Male</option>
+            <option value="F">Female</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Education Level <span class="tech-tag">[NAME_EDUCATION_TYPE]</span></label>
+          <select name="NAME_EDUCATION_TYPE" required>
+            <option value="Higher education" selected>Higher Education (Bachelors / Masters)</option>
+            <option value="Academic degree">Academic Degree (Doctorate / Postgrad)</option>
+            <option value="Incomplete higher">Incomplete Higher Education</option>
+            <option value="Secondary / secondary special">Secondary / High School</option>
+            <option value="Lower secondary">Lower Secondary</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Marital / Family Status <span class="tech-tag">[NAME_FAMILY_STATUS]</span></label>
+          <select name="NAME_FAMILY_STATUS" required>
+            <option value="Married" selected>Married</option>
+            <option value="Civil marriage">Civil Marriage</option>
+            <option value="Single / not married">Single / Not Married</option>
+            <option value="Separated">Separated / Divorced</option>
+            <option value="Widow">Widow</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Housing Classification <span class="tech-tag">[NAME_HOUSING_TYPE]</span></label>
+          <select name="NAME_HOUSING_TYPE" required>
+            <option value="House / apartment" selected>House / Apartment</option>
+            <option value="Rented apartment">Rented Apartment</option>
+            <option value="With parents">Living with Parents</option>
+            <option value="Municipal apartment">Municipal Apartment</option>
+            <option value="Office apartment">Office Apartment</option>
+            <option value="Co-op apartment">Co-op Apartment</option>
+          </select>
         </div>
       </div>
 
-      <button class="btn" type="submit">Predict</button>
-
-      {% if result %}
-        <div class="result {{ result_class }}">
-          Probability of Bad Credit: {{ probability }}<br>
-          {{ result }}
+      <!-- Section 3: Household & Contact Details -->
+      <div class="section-title">
+        <i class="fa-solid fa-address-book" style="color:var(--primary);"></i> 3. Household &amp; Verification Signals
+      </div>
+      <div class="form-grid three-col">
+        <div class="form-group">
+          <label>Occupation Category <span class="tech-tag">[OCCUPATION_TYPE]</span></label>
+          <select name="OCCUPATION_TYPE" required>
+            <option value="Managers" selected>Managers / Directors</option>
+            <option value="Core staff">Core Professional Staff</option>
+            <option value="High skill tech staff">High Skill Technical Staff</option>
+            <option value="Accountants">Accountants / Auditors</option>
+            <option value="IT staff">IT &amp; Software Engineers</option>
+            <option value="Sales staff">Sales Staff</option>
+            <option value="Laborers">Laborers / Field Operations</option>
+            <option value="Drivers">Drivers / Transport</option>
+            <option value="Medicine staff">Healthcare / Medicine Staff</option>
+            <option value="Other">Other / General</option>
+          </select>
         </div>
-      {% elif error %}
-        <div class="error">{{ error }}</div>
-      {% endif %}
+        <div class="form-group">
+          <label>Number of Children <span class="tech-tag">[CNT_CHILDREN]</span></label>
+          <input type="number" name="CNT_CHILDREN" value="0" min="0" max="15" required>
+        </div>
+        <div class="form-group">
+          <label>Total Family Members <span class="tech-tag">[CNT_FAM_MEMBERS]</span></label>
+          <input type="number" name="CNT_FAM_MEMBERS" value="2" min="1" max="20" required>
+        </div>
+        <div class="form-group">
+          <label>Work Phone Provided <span class="tech-tag">[FLAG_WORK_PHONE]</span></label>
+          <select name="FLAG_WORK_PHONE">
+            <option value="1" selected>Yes (Verified Employer Contact)</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Home Phone Provided <span class="tech-tag">[FLAG_PHONE]</span></label>
+          <select name="FLAG_PHONE">
+            <option value="1" selected>Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Email Address Registered <span class="tech-tag">[FLAG_EMAIL]</span></label>
+          <select name="FLAG_EMAIL">
+            <option value="1" selected>Yes</option>
+            <option value="0">No</option>
+          </select>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-submit">
+        <i class="fa-solid fa-calculator"></i> Run Quantitative Credit Risk Evaluation
+      </button>
+
     </form>
   </div>
+
 </body>
 </html>

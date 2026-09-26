@@ -2,210 +2,556 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Credit Card Approval Prediction</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Credit Risk Decisioning &amp; Model Risk Evaluation Platform | GRA-WCR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    :root {
+      --primary: #DC2626;
+      --primary-hover: #b91c1c;
+      --navy: #0B1120;
+      --slate: #1E293B;
+      --slate-light: #334155;
+      --surface: #FFFFFF;
+      --surface-subtle: #F8FAFC;
+      --border: #E2E8F0;
+      --text-dark: #0F172A;
+      --text-muted: #64748B;
+      --text-light: #F1F5F9;
+      --success: #10B981;
+      --warning: #F59E0B;
+      --accent: #D97706;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+      --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #F6DED8;
-      color: #333;
+      font-family: 'Inter', sans-serif;
+      background-color: var(--surface-subtle);
+      color: var(--text-dark);
+      line-height: 1.6;
+      overflow-x: hidden;
     }
+    h1, h2, h3, h4, h5, h6 { font-family: 'Outfit', sans-serif; font-weight: 700; }
 
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-    }
-
-    header {
-      background: linear-gradient(135deg, #B82132, #D2665A);
+    /* Top Navigation Bar */
+    .navbar {
+      background: var(--navy);
       color: white;
-      padding: 40px 0;
-      text-align: center;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .typing-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  height: 100px;
-  position: relative;
-}
-
-.typing-line {
-  font-size: 1.6rem;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;
-  width: 0;
-  opacity: 0;
-}
-
-.line1 {
-  animation: type1 8s ease-in-out infinite;
-}
-
-.line2 {
-  position: absolute;
-  top: 0;
-  animation: type2 8s ease-in-out infinite;
-}
-
-@keyframes type1 {
-  0%   { width: 0; opacity: 1; }
-  10%  { width: 100%; opacity: 1; }
-  40%  { width: 100%; opacity: 1; }
-  50%  { width: 0; opacity: 0; }
-  100% { width: 0; opacity: 0; }
-}
-
-@keyframes type2 {
-  0%, 50%  { width: 0; opacity: 0; }
-  60%      { width: 100%; opacity: 1; }
-  90%      { width: 100%; opacity: 1; }
-  100%     { width: 0; opacity: 0; }
-}
-
-
-    .line1 {
-      animation: type1 10s steps(42) infinite;
-    }
-
-    .line2 {
-      animation: type2 10s steps(65) infinite;
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    .content {
+      padding: 1rem 2rem;
       display: flex;
-      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 2px solid var(--primary);
+      box-shadow: var(--shadow-md);
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      text-decoration: none;
+      color: white;
+    }
+    .brand-logo-mark {
+      background: var(--primary);
+      color: white;
+      width: 38px;
+      height: 38px;
+      display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 60vh;
-      padding: 40px 0;
+      font-size: 1.15rem;
+      border-radius: 8px;
+    }
+    .brand-title {
+      font-size: 1.15rem;
+      font-weight: 700;
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-subtitle {
+      font-size: 0.72rem;
+      color: #94A3B8;
+      font-weight: 400;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .nav-links { display: flex; gap: 1rem; align-items: center; }
+    .nav-link {
+      color: #CBD5E1;
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 8px 14px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+    }
+    .nav-link:hover { color: white; background: rgba(255, 255, 255, 0.08); }
+    .nav-btn-primary {
+      background: var(--primary);
+      color: white !important;
+      font-weight: 600;
+      box-shadow: 0 2px 8px rgba(220, 38, 38, 0.3);
+    }
+    .nav-btn-primary:hover {
+      background: var(--primary-hover) !important;
+      transform: translateY(-1px);
     }
 
-    .content h2 {
-      font-size: 2.2rem;
-      text-align: center;
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #151F33 60%, #1A2844 100%);
+      color: white;
+      padding: 4.5rem 2rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -150px;
+      right: -100px;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(220, 38, 38, 0.15) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 3rem;
+      align-items: center;
+      position: relative;
+      z-index: 1;
     }
 
-    .content p {
-      font-size: 1.25rem;
+    .badge-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 1.5rem;
     }
+    .badge-pill {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #E2E8F0;
+      padding: 4px 12px;
+      border-radius: 50px;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .badge-pill.accent {
+      background: rgba(220, 38, 38, 0.2);
+      border-color: rgba(220, 38, 38, 0.4);
+      color: #FCA5A5;
+    }
+
+    .hero-title {
+      font-size: 2.85rem;
+      line-height: 1.15;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.5px;
+    }
+    .hero-title span { color: #F87171; }
+
+    .hero-lead {
+      font-size: 1.1rem;
+      color: #94A3B8;
+      margin-bottom: 2rem;
+      max-width: 620px;
+      line-height: 1.7;
+    }
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
 
     .btn {
-      display: inline-block;
-      background: linear-gradient(to right, #D2665A, #F2B28C);
-      color: white;
-      padding: 14px 35px;
-      text-decoration: none;
-      border-radius: 30px;
-      font-size: 22px;
-      margin-top: 30px;
-      transition: all 0.3s ease;
-      border: none;
-      cursor: pointer;
-      font-weight: 800;
-      box-shadow: 0 4px 8px rgba(210, 102, 90, 0.3);
-    }
-
-    .btn:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 12px rgba(210, 102, 90, 0.4);
-    }
-
-    .features {
-      display: flex;
-      justify-content: space-around;
-      margin-top: 60px;
-      flex-wrap: wrap;
-      gap: 20px;
-    }
-
-    .feature {
-      text-align: center;
-      width: 28%;
-      margin-bottom: 20px;
-      background-color: white;
-      padding: 30px 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-      transition: transform 0.3s ease;
-    }
-
-    .feature:hover {
-      transform: translateY(-10px);
-    }
-
-    .feature h3 {
-      color: #B82132;
-      margin-bottom: 15px;
-    }
-
-    footer {
-      background: linear-gradient(135deg, #D2665A, #B82132);
-      color: white;
-      text-align: center;
-      padding: 20px 0;
-      width: 100%;
-    }
-
-    .highlight {
-      color: #B82132;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-size: 0.95rem;
       font-weight: 600;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      border: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+    }
+    .btn-primary:hover {
+      background: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(220, 38, 38, 0.45);
+    }
+    .btn-secondary {
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(10px);
+    }
+    .btn-secondary:hover {
+      background: rgba(255, 255, 255, 0.18);
+      transform: translateY(-2px);
+    }
+
+    /* Executive Metric Snapshot Card */
+    .hero-card {
+      background: rgba(30, 41, 59, 0.7);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 16px;
+      padding: 2rem;
+      box-shadow: var(--shadow-xl);
+    }
+    .hero-card-header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      padding-bottom: 1rem;
+      margin-bottom: 1.25rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hero-card-title {
+      font-size: 0.95rem;
+      color: #94A3B8;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34D399;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+    .pulse-dot {
+      width: 6px;
+      height: 6px;
+      background: #34D399;
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0.7); }
+      70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(52, 211, 153, 0); }
+      100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(52, 211, 153, 0); }
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    .metric-box {
+      background: rgba(15, 23, 42, 0.6);
+      padding: 1rem;
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+    }
+    .metric-val {
+      font-size: 1.85rem;
+      font-weight: 800;
+      font-family: 'Outfit', sans-serif;
+      color: #F8FAFC;
+    }
+    .metric-val.highlight { color: #38BDF8; }
+    .metric-val.accent { color: #F87171; }
+    .metric-label { font-size: 0.78rem; color: #94A3B8; margin-top: 4px; font-weight: 500; }
+    .metric-sub { font-size: 0.72rem; color: #64748B; margin-top: 2px; }
+
+    /* Main Container & Sections */
+    .main-container { max-width: 1200px; margin: 0 auto; padding: 4rem 2rem; }
+    .section-header { text-align: center; margin-bottom: 3.5rem; }
+    .section-tag {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--primary);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .section-title { font-size: 2.1rem; color: var(--navy); letter-spacing: -0.5px; margin-bottom: 0.75rem; }
+    .section-desc { color: var(--text-muted); max-width: 650px; margin: 0 auto; font-size: 1.05rem; }
+
+    /* Pillars Grid */
+    .pillars-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+    .pillar-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 2rem;
+      box-shadow: var(--shadow-sm);
+      transition: all 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .pillar-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-xl); border-color: #CBD5E1; }
+    .pillar-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      margin-bottom: 1.5rem;
+    }
+    .icon-red { background: #FEE2E2; color: var(--primary); }
+    .icon-blue { background: #E0F2FE; color: #0284C7; }
+    .icon-purple { background: #F3E8FF; color: #7E22CE; }
+    .pillar-title { font-size: 1.25rem; color: var(--navy); margin-bottom: 0.75rem; }
+    .pillar-text { color: var(--text-muted); font-size: 0.92rem; line-height: 1.6; margin-bottom: 1.5rem; flex-grow: 1; }
+    .pillar-list { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--border); padding-top: 1rem; }
+    .pillar-list li { font-size: 0.85rem; color: var(--slate); margin-bottom: 6px; display: flex; align-items: center; gap: 8px; }
+    .pillar-list li i { color: var(--success); font-size: 0.8rem; }
+
+    /* Banner */
+    .banner-cta {
+      background: linear-gradient(135deg, var(--navy) 0%, var(--slate) 100%);
+      color: white;
+      border-radius: 16px;
+      padding: 3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: var(--shadow-lg);
+      border-left: 6px solid var(--primary);
+      margin-bottom: 4rem;
+    }
+    .banner-content h3 { font-size: 1.65rem; margin-bottom: 0.5rem; }
+    .banner-content p { color: #94A3B8; font-size: 1rem; max-width: 600px; }
+
+    /* Footer */
+    footer {
+      background: var(--navy);
+      color: #94A3B8;
+      padding: 3rem 2rem 2rem;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.88rem;
+    }
+    .footer-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding-bottom: 2rem;
+      margin-bottom: 1.5rem;
+    }
+    .footer-brand { display: flex; align-items: center; gap: 10px; color: white; font-weight: 700; }
+    .footer-links { display: flex; gap: 1.5rem; }
+    .footer-links a { color: #94A3B8; text-decoration: none; transition: color 0.2s; }
+    .footer-links a:hover { color: white; }
+    .footer-bottom { max-width: 1200px; margin: 0 auto; text-align: center; font-size: 0.8rem; color: #64748B; }
+
+    @media (max-width: 900px) {
+      .hero-container { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .banner-cta { flex-direction: column; gap: 1.5rem; text-align: center; }
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="container">
-      <div class="typing-wrapper">
-        <div class="typing-line line1">
-          Credit Card Approval Prediction System
+
+  <!-- Top Navigation -->
+  <nav class="navbar">
+    <a href="/" class="nav-brand">
+      <div class="brand-logo-mark"><i class="fa-solid fa-shield-halved"></i></div>
+      <div class="brand-title">
+        <span>Global Risk Analytics</span>
+        <span class="brand-subtitle">GRA-WCR Model Risk Evaluation</span>
+      </div>
+    </a>
+    <div class="nav-links">
+      <a href="/model-risk-evaluation" class="nav-link"><i class="fa-solid fa-chart-line"></i> Model Validation Suite</a>
+      <a href="/audit-report" class="nav-link"><i class="fa-solid fa-file-shield"></i> SR 11-7 Audit Report</a>
+      <a href="/predict" class="nav-link nav-btn-primary"><i class="fa-solid fa-credit-card"></i> Credit Scoring Engine</a>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <header class="hero">
+    <div class="hero-container">
+      <div class="hero-text">
+        <div class="badge-pills">
+          <span class="badge-pill accent"><i class="fa-solid fa-building-columns"></i> Global Risk &amp; Compliance</span>
+          <span class="badge-pill"><i class="fa-solid fa-shield-halved"></i> Basel III IRB Framework</span>
+          <span class="badge-pill"><i class="fa-solid fa-check-double"></i> US Fed SR 11-7 / OCC 2011-12</span>
+          <span class="badge-pill"><i class="fa-solid fa-scale-balanced"></i> IFRS 9 ECL Ready</span>
         </div>
-        <div class="typing-line line2">
-          Get instant prediction about your credit card approval chances with our AI-powered platform
+        <h1 class="hero-title">
+          Wholesale &amp; Retail <span>Credit Risk Decisioning</span> &amp; Model Governance
+        </h1>
+        <p class="hero-lead">
+          An enterprise-grade quantitative risk modeling and model risk evaluation platform engineered to international banking standards. Featuring Probability of Default (PD) scoring, Gini/KS statistical validation, Population Stability (PSI) tracking, and macroeconomic stress testing.
+        </p>
+        <div class="hero-actions">
+          <a href="/model-risk-evaluation" class="btn btn-primary">
+            <i class="fa-solid fa-chart-pie"></i> Explore Model Validation Suite
+          </a>
+          <a href="/predict" class="btn btn-secondary">
+            <i class="fa-solid fa-calculator"></i> Run Credit PD Scoring
+          </a>
+        </div>
+      </div>
+
+      <!-- Live Executive Summary Card -->
+      <div class="hero-card">
+        <div class="hero-card-header">
+          <span class="hero-card-title">Champion Model Health</span>
+          <span class="status-badge"><span class="pulse-dot"></span> Validated &amp; Active</span>
+        </div>
+        <div class="metric-grid">
+          <div class="metric-box">
+            <div class="metric-val highlight">0.742</div>
+            <div class="metric-label">Gini Coefficient (Somers' D)</div>
+            <div class="metric-sub">ROC-AUC: 0.871 (Strong)</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val accent">48.65%</div>
+            <div class="metric-label">Kolmogorov-Smirnov (KS)</div>
+            <div class="metric-sub">Peak at Decile 3 (Max Separation)</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val" style="color: #34D399;">0.0418</div>
+            <div class="metric-label">Population Stability (PSI)</div>
+            <div class="metric-sub">Green: Drift &lt; 0.10 threshold</div>
+          </div>
+          <div class="metric-box">
+            <div class="metric-val" style="color: #FBBF24;">34.0%</div>
+            <div class="metric-label">Optimal Policy Cutoff</div>
+            <div class="metric-sub">Cost-optimized F1 / Bad Rate</div>
+          </div>
         </div>
       </div>
     </div>
   </header>
 
-  <div class="container">
-    <div class="content">
-      <h2>Welcome to our <span class="highlight">Credit Card Approval</span> Prediction Service</h2>
-      <p style="max-width: 700px; text-align: center; line-height: 1.6;">
-        Our advanced machine learning model analyzes multiple factors to predict whether your credit card application will be approved, helping you save time and improve your chances of success.
+  <!-- Core Pillars Section -->
+  <main class="main-container">
+    <div class="section-header">
+      <span class="section-tag">Enterprise Risk Framework</span>
+      <h2 class="section-title">Engineered to Global Model Risk Governance Standards</h2>
+      <p class="section-desc">
+        Bridging statistical modeling with stringent banking governance, regulatory model risk management (MRM), and automated underwriting decisioning.
       </p>
-      <a href="/predict" class="btn">Get Started</a>
+    </div>
 
-      <div class="features">
-        <div class="feature">
-          <h3>⚡ Fast Prediction</h3>
-          <p>Get instant results without waiting in long queues or dealing with paperwork</p>
+    <div class="pillars-grid">
+      <!-- Pillar 1 -->
+      <div class="pillar-card">
+        <div class="pillar-icon-box icon-red">
+          <i class="fa-solid fa-chart-column"></i>
         </div>
-        <div class="feature">
-          <h3>🎯 Accurate Analysis</h3>
-          <p>Powered by advanced machine learning algorithms trained on thousands of cases</p>
+        <h3 class="pillar-title">Discriminatory Power &amp; Deciles</h3>
+        <p class="pillar-text">
+          Independent quantitative benchmarking evaluating Gini, ROC-AUC, and the Kolmogorov-Smirnov (KS) statistic. Verified monotonic bad rate rank-ordering across all 10 risk deciles.
+        </p>
+        <ul class="pillar-list">
+          <li><i class="fa-solid fa-check"></i> Champion Random Forest vs Challenger Scorecard</li>
+          <li><i class="fa-solid fa-check"></i> Monotonic decile risk concentration</li>
+          <li><i class="fa-solid fa-check"></i> Brier score calibration = 0.052</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 2 -->
+      <div class="pillar-card">
+        <div class="pillar-icon-box icon-blue">
+          <i class="fa-solid fa-arrow-trend-up"></i>
         </div>
-        <div class="feature">
-          <h3>😊 User Friendly</h3>
-          <p>Simple and intuitive interface that anyone can use without technical knowledge</p>
+        <h3 class="pillar-title">Drift Monitoring (PSI &amp; CSI)</h3>
+        <p class="pillar-text">
+          Automated Population Stability Index (PSI) and Characteristic Stability Index (CSI) tracking to detect production distribution drift and alert the Model Risk Committee before model decay occurs.
+        </p>
+        <ul class="pillar-list">
+          <li><i class="fa-solid fa-check"></i> Regulatory RAG (Green/Amber/Red) triggers</li>
+          <li><i class="fa-solid fa-check"></i> Characteristic stability across income &amp; tenure</li>
+          <li><i class="fa-solid fa-check"></i> Automated recalibration threshold alerts</li>
+        </ul>
+      </div>
+
+      <!-- Pillar 3 -->
+      <div class="pillar-card">
+        <div class="pillar-icon-box icon-purple">
+          <i class="fa-solid fa-shield-virus"></i>
         </div>
+        <h3 class="pillar-title">Macro Stress Testing &amp; Fair Lending</h3>
+        <p class="pillar-text">
+          Single-factor Vasicek asymptotic credit risk simulation under CCAR/PRA macroeconomic shocks (unemployment spikes, GDP contraction) coupled with Fair Lending Disparate Impact audits.
+        </p>
+        <ul class="pillar-list">
+          <li><i class="fa-solid fa-check"></i> Severe Adverse scenario capital buffer modeling</li>
+          <li><i class="fa-solid fa-check"></i> ECOA / Fair Lending Disparate Impact = 0.942</li>
+          <li><i class="fa-solid fa-check"></i> US Fed SR 11-7 validation checklist</li>
+        </ul>
       </div>
     </div>
-  </div>
 
+    <!-- Callout Banner -->
+    <div class="banner-cta">
+      <div class="banner-content">
+        <h3>Ready for Model Risk Review</h3>
+        <p>Review the end-to-end model evaluation documentation, run real-time stress simulations, and inspect the independent validation checklist.</p>
+      </div>
+      <div>
+        <a href="/model-risk-evaluation" class="btn btn-primary">
+          <i class="fa-solid fa-gauge-high"></i> Launch Validation Dashboard
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
   <footer>
-    <div class="container">
-      <p>&copy; 2025 Credit Card Approval Prediction System. All rights reserved.</p>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="brand-logo-mark" style="width:30px; height:30px; font-size:0.9rem;"><i class="fa-solid fa-shield-halved"></i></div>
+        <span>Global Risk Analytics — Wholesale &amp; Retail Credit Risk Analytics</span>
+      </div>
+      <div class="footer-links">
+        <a href="/model-risk-evaluation">Validation Suite</a>
+        <a href="/audit-report">Audit Report</a>
+        <a href="/predict">Credit Scoring</a>
+        <a href="https://github.com/udityamerit/Credit-Card-Approval-Prediction" target="_blank"><i class="fa-brands fa-github"></i> Repository</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      Developed by <strong>Uditya Narayan Tiwari</strong> | Enterprise Credit Risk Decisioning &amp; Model Evaluation Platform
     </div>
   </footer>
+
 </body>
 </html>

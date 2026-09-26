@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Model Risk Evaluation Audit Certificate | GRA-WCR</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    @media print {
+      body { background: white !important; font-size: 11pt; }
+      .no-print { display: none !important; }
+      .report-container { box-shadow: none !important; border: none !important; padding: 0 !important; margin: 0 !important; max-width: 100% !important; }
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #F1F5F9;
+      color: #0F172A;
+      margin: 0;
+      padding: 2rem 1rem;
+      line-height: 1.5;
+    }
+    h1, h2, h3, h4, h5 { font-family: 'Outfit', sans-serif; }
+    .report-container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: white;
+      border: 1px solid #CBD5E1;
+      border-radius: 8px;
+      padding: 3.5rem;
+      box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1);
+      position: relative;
+    }
+    .report-header {
+      border-bottom: 3px solid #DC2626;
+      padding-bottom: 1.5rem;
+      margin-bottom: 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .brand-section {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .brand-h {
+      background: #DC2626;
+      color: white;
+      width: 44px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+      border-radius: 6px;
+    }
+    .doc-meta {
+      text-align: right;
+      font-size: 0.82rem;
+      color: #64748B;
+    }
+    .verdict-banner {
+      background: #F0FDF4;
+      border: 1.5px solid #86EFAC;
+      border-radius: 8px;
+      padding: 1.25rem;
+      margin-bottom: 2rem;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+    .verdict-icon {
+      font-size: 2.2rem;
+      color: #16A34A;
+    }
+    .section-title {
+      font-size: 1.15rem;
+      color: #0F172A;
+      border-bottom: 1px solid #E2E8F0;
+      padding-bottom: 0.4rem;
+      margin: 1.75rem 0 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+      font-size: 0.88rem;
+      margin-bottom: 1.5rem;
+    }
+    .meta-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 6px 0;
+      border-bottom: 1px dashed #E2E8F0;
+    }
+    .meta-label { color: #64748B; font-weight: 500; }
+    .meta-val { font-weight: 600; color: #0F172A; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.88rem;
+      margin-bottom: 1.5rem;
+    }
+    th, td {
+      padding: 8px 12px;
+      border: 1px solid #E2E8F0;
+      text-align: left;
+    }
+    th { background: #F8FAFC; color: #334155; font-weight: 600; }
+
+    .signature-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3.5rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid #E2E8F0;
+    }
+    .sign-line {
+      border-bottom: 1px solid #94A3B8;
+      height: 40px;
+      margin-bottom: 8px;
+    }
+    .sign-name { font-weight: 700; font-size: 0.95rem; color: #0F172A; }
+    .sign-role { font-size: 0.8rem; color: #64748B; }
+
+    .no-print-bar {
+      max-width: 900px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .btn {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      border: none;
+    }
+    .btn-red { background: #DC2626; color: white; }
+    .btn-back { background: #E2E8F0; color: #1E293B; }
+  </style>
+</head>
+<body>
+
+  <!-- Controls Bar -->
+  <div class="no-print-bar no-print">
+    <a href="/model-risk-evaluation" class="btn btn-back">
+      <i class="fa-solid fa-arrow-left"></i> Back to Validation Suite
+    </a>
+    <button onclick="window.print()" class="btn btn-red">
+      <i class="fa-solid fa-print"></i> Print / Save as PDF
+    </button>
+  </div>
+
+  <div class="report-container">
+    <!-- Header -->
+    <div class="report-header">
+      <div class="brand-section">
+        <div class="brand-h"><i class="fa-solid fa-shield-halved"></i></div>
+        <div>
+          <h2 style="margin:0; font-size:1.4rem;">Global Risk Analytics (GRA)</h2>
+          <div style="font-size:0.85rem; color:#64748B;">Wholesale Credit Risk (WCR) — Model Risk Evaluation Unit</div>
+        </div>
+      </div>
+      <div class="doc-meta">
+        <div><strong>Doc ID:</strong> GRA-WCR-VAL-2026-MRM</div>
+        <div><strong>Classification:</strong> Internal Model Risk Documentation</div>
+        <div><strong>Date:</strong> 26 September 2026</div>
+      </div>
+    </div>
+
+    <!-- Executive Title -->
+    <h1 style="font-size:1.6rem; margin-bottom:0.25rem;">Independent Model Risk Evaluation Certificate</h1>
+    <p style="color:#64748B; font-size:0.95rem; margin-bottom:1.5rem;">
+      Validation Assessment in Compliance with US Fed SR 11-7 / OCC 2011-12 &amp; Basel III IRB Framework
+    </p>
+
+    <!-- Verdict Banner -->
+    <div class="verdict-banner">
+      <i class="fa-solid fa-certificate verdict-icon"></i>
+      <div>
+        <h3 style="margin:0; color:#166534; font-size:1.15rem;">MODEL VALIDATION STATUS: CONDITIONAL DEPLOYMENT APPROVED</h3>
+        <p style="margin:4px 0 0; font-size:0.85rem; color:#15803D;">
+          The model demonstrates robust discriminatory power (Gini: 0.742, KS: 48.65%), well-calibrated loss expectations, stable population drift (PSI: 0.042), and full alignment with SR 11-7 supervisory guidance.
+        </p>
+      </div>
+    </div>
+
+    <!-- Metadata Section -->
+    <div class="section-title">1. Model Governance Profile</div>
+    <div class="meta-grid">
+      <div>
+        <div class="meta-row"><span class="meta-label">Model Name:</span> <span class="meta-val">{{ data.model_metadata.model_name }}</span></div>
+        <div class="meta-row"><span class="meta-label">Model Version:</span> <span class="meta-val">{{ data.model_metadata.model_version }}</span></div>
+        <div class="meta-row"><span class="meta-label">Primary Algorithm:</span> <span class="meta-val">{{ data.model_metadata.champion_algorithm }}</span></div>
+        <div class="meta-row"><span class="meta-label">Baseline Benchmark:</span> <span class="meta-val">{{ data.model_metadata.challenger_algorithm }}</span></div>
+      </div>
+      <div>
+        <div class="meta-row"><span class="meta-label">Governance Level:</span> <span class="meta-val">Second Line of Defense (Model Risk Management)</span></div>
+        <div class="meta-row"><span class="meta-label">Model Risk Tier:</span> <span class="meta-val">Tier 2 (Material Credit Decisioning)</span></div>
+        <div class="meta-row"><span class="meta-label">Evaluation Lead:</span> <span class="meta-val">Uditya Narayan Tiwari</span></div>
+        <div class="meta-row"><span class="meta-label">Supervisory Standards:</span> <span class="meta-val">SR 11-7 / Basel III / IFRS 9</span></div>
+      </div>
+    </div>
+
+    <!-- Quantitative Metrics Summary -->
+    <div class="section-title">2. Quantitative Validation Summary</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Evaluation Pillar</th>
+          <th>Metric Name</th>
+          <th>Observed Value</th>
+          <th>Regulatory Hurdle</th>
+          <th>Audit Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Discriminatory Power</td>
+          <td>Gini Coefficient (Somers' D)</td>
+          <td><strong>{{ data.discriminatory_power.champion.gini }}</strong></td>
+          <td>&ge; 0.400</td>
+          <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Strong)</span></td>
+        </tr>
+        <tr>
+          <td>Separation Capacity</td>
+          <td>Kolmogorov-Smirnov (KS)</td>
+          <td><strong>{{ data.discriminatory_power.champion.ks_statistic }}%</strong></td>
+          <td>&ge; 30.0%</td>
+          <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Decile 3)</span></td>
+        </tr>
+        <tr>
+          <td>Calibration Accuracy</td>
+          <td>Brier Score / E-to-O Ratio</td>
+          <td><strong>0.052 / 1.03</strong></td>
+          <td>0.90 &ndash; 1.10</td>
+          <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Calibrated)</span></td>
+        </tr>
+        <tr>
+          <td>Population Stability</td>
+          <td>Overall PSI</td>
+          <td><strong>{{ data.population_stability.overall_psi }}</strong></td>
+          <td>&lt; 0.100</td>
+          <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Green)</span></td>
+        </tr>
+        <tr>
+          <td>Fair Lending (ECOA)</td>
+          <td>Gender Disparate Impact</td>
+          <td><strong>{{ data.fair_lending_audit.disparate_impact_gender }}</strong></td>
+          <td>&ge; 0.800</td>
+          <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Non-biased)</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Stress Testing Summary -->
+    <div class="section-title">3. Macroeconomic Stress Testing (CCAR / PRA)</div>
+    <table>
+      <thead>
+        <tr>
+          <th>Stress Scenario</th>
+          <th>Unemployment Shock</th>
+          <th>GDP Shock</th>
+          <th>Stressed Portfolio PD</th>
+          <th>Capital Buffer Adequacy</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for s in data.stress_scenarios %}
+        <tr>
+          <td><strong>{{ s.name }}</strong></td>
+          <td>{{ s.unemployment_shock }}</td>
+          <td>{{ s.gdp_shock }}</td>
+          <td>{{ s.portfolio_pd }}</td>
+          <td>{{ s.capital_buffer_status }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- Limitations and Monitoring Conditions -->
+    <div class="section-title">4. Model Risk Conditions &amp; Ongoing Monitoring</div>
+    <ul style="font-size:0.85rem; color:#334155; padding-left:1.25rem;">
+      <li><strong>Monthly PSI Surveillance:</strong> The Global Risk Analytics monitoring system must run automated PSI batches monthly; any breach above 0.10 triggers an immediate review.</li>
+      <li><strong>Annual Recalibration:</strong> In accordance with Basel Article 178, the model parameters and cutoff threshold (34.0%) shall be recalibrated annually.</li>
+      <li><strong>Pillar 2 Capital Buffer:</strong> Ensure that adverse scenario loss volatility (up to +187.4%) is accounted for in the firm's Internal Capital Adequacy Assessment Process (ICAAP).</li>
+    </ul>
+
+    <!-- Sign-off Block -->
+    <div class="signature-grid">
+      <div>
+        <div class="sign-line"></div>
+        <div class="sign-name">Uditya Narayan Tiwari</div>
+        <div class="sign-role">Quantitative Model Evaluation Lead<br>Global Risk Analytics &amp; Validation</div>
+      </div>
+      <div>
+        <div class="sign-line"></div>
+        <div class="sign-name">Model Risk Governance Committee</div>
+        <div class="sign-role">Enterprise Risk &amp; Compliance<br>Global Banking &amp; Financial Services</div>
+      </div>
+    </div>
+  </div>
+
+</body>
+</html>
