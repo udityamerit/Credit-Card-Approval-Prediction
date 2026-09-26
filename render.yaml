@@ -1,6 +1,11 @@
 services:
   - type: web
-    name: credit-card-approval
-    env: python
-    buildCommand: ""
+    name: credit-card-approval-prediction
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt && python train_champion_model.py
     startCommand: gunicorn wsgi:app
+    autoDeploy: true
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.8

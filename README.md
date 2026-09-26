@@ -10,7 +10,7 @@
 [![Regulatory Standard](<https://img.shields.io/badge/Regulatory-US%20Fed%20SR%2011--7%20%7C%20OCC%202011--12-red.svg>)](https://www.federalreserve.gov/supervisionreg/srletters/sr1107.htm)
 [![Capital Framework](<https://img.shields.io/badge/Capital%20Framework-Basel%20III%20IRB-green.svg>)](https://www.bis.org/bcbs/)
 [![Accounting Standard](<https://img.shields.io/badge/Accounting-IFRS%209%20ECL%20Staging-orange.svg>)](https://www.ifrs.org/)
-[![Model Governance](<https://img.shields.io/badge/Model%20Risk%20Status-Conditionally%20Approved-success.svg>)](#)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/udityamerit/Credit-Card-Approval-Prediction)
 
 ---
 
@@ -181,6 +181,29 @@ Open your web browser and navigate to:
 - **Model Risk Evaluation Dashboard:** [http://127.0.0.1:5000/model-risk-evaluation](http://127.0.0.1:5000/model-risk-evaluation)
 - **Credit Scoring & PD Engine:** [http://127.0.0.1:5000/predict](http://127.0.0.1:5000/predict)
 - **Printable SR 11-7 Audit Certificate:** [http://127.0.0.1:5000/audit-report](http://127.0.0.1:5000/audit-report)
+
+---
+
+## ☁️ Live Cloud Deployment (Render PaaS)
+
+This repository is pre-configured with [`render.yaml`](render.yaml) and [`Procfile`](Procfile) for automatic deployment connected to your GitHub account:
+
+### 1-Click Instant Deployment:
+Click the button below to deploy this repository directly to Render for free:
+
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/udityamerit/Credit-Card-Approval-Prediction)
+
+### Manual Setup on Render (2 Minutes):
+1. Sign in to [Render.com](https://render.com/) with your GitHub account.
+2. Click **New +** $\rightarrow$ **Web Service**.
+3. Select and connect your repository: `udityamerit/Credit-Card-Approval-Prediction`.
+4. Configure the service settings:
+   - **Environment:** `Python 3`
+   - **Build Command:** `pip install -r requirements.txt && python train_champion_model.py`
+   - **Start Command:** `gunicorn wsgi:app`
+   - **Instance Type:** `Free`
+5. Click **Deploy Web Service**. Render will build the environment, generate the champion model, and provide a public HTTPS URL (e.g. `https://credit-card-approval-prediction.onrender.com`).
+
 
 ---
 
