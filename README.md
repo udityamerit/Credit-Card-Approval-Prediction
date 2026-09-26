@@ -6,11 +6,14 @@
 **Business Function:** Risk & Compliance — Model Risk Management (MRM)
 **Author:** [Uditya Narayan Tiwari](https://github.com/udityamerit)
 
+[![Live Demo](https://img.shields.io/badge/Live%20Demo-Vercel%20Production-00c853?style=for-the-badge&logo=vercel&logoColor=white)](https://credit-card-approval-prediction-cyan.vercel.app/)
 [![Python Version](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![Regulatory Standard](<https://img.shields.io/badge/Regulatory-US%20Fed%20SR%2011--7%20%7C%20OCC%202011--12-red.svg>)](https://www.federalreserve.gov/supervisionreg/srletters/sr1107.htm)
 [![Capital Framework](<https://img.shields.io/badge/Capital%20Framework-Basel%20III%20IRB-green.svg>)](https://www.bis.org/bcbs/)
 [![Accounting Standard](<https://img.shields.io/badge/Accounting-IFRS%209%20ECL%20Staging-orange.svg>)](https://www.ifrs.org/)
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/udityamerit/Credit-Card-Approval-Prediction)
+
+> 🌐 **Live Web Application (Production):** **[https://credit-card-approval-prediction-cyan.vercel.app/](https://credit-card-approval-prediction-cyan.vercel.app/)**  
+> Open directly in any browser to test real-time credit scoring, macroeconomic stress testing, and model risk validation.
 
 ---
 
@@ -175,34 +178,30 @@ python app.py
 
 ### 5. Access the Web Application
 
-Open your web browser and navigate to:
+### 5. Access the Web Application
 
-- **Executive Portal & Overview:** [http://127.0.0.1:5000/](http://127.0.0.1:5000/)
-- **Model Risk Evaluation Dashboard:** [http://127.0.0.1:5000/model-risk-evaluation](http://127.0.0.1:5000/model-risk-evaluation)
-- **Credit Scoring & PD Engine:** [http://127.0.0.1:5000/predict](http://127.0.0.1:5000/predict)
-- **Printable SR 11-7 Audit Certificate:** [http://127.0.0.1:5000/audit-report](http://127.0.0.1:5000/audit-report)
+- **Live Production URLs (Vercel):**
+  - **Executive Portal & Overview:** [https://credit-card-approval-prediction-cyan.vercel.app/](https://credit-card-approval-prediction-cyan.vercel.app/)
+  - **Model Risk Evaluation Dashboard:** [https://credit-card-approval-prediction-cyan.vercel.app/model-risk-evaluation](https://credit-card-approval-prediction-cyan.vercel.app/model-risk-evaluation)
+  - **Credit Scoring & PD Engine:** [https://credit-card-approval-prediction-cyan.vercel.app/predict](https://credit-card-approval-prediction-cyan.vercel.app/predict)
+  - **Printable SR 11-7 Audit Certificate:** [https://credit-card-approval-prediction-cyan.vercel.app/audit-report](https://credit-card-approval-prediction-cyan.vercel.app/audit-report)
+
+- **Local Development URL:**
+  - `http://127.0.0.1:5000/`
 
 ---
 
-## ☁️ Live Cloud Deployment (Render PaaS)
+## ☁️ Live Cloud Deployment (Vercel Serverless)
 
-This repository is pre-configured with [`render.yaml`](render.yaml) and [`Procfile`](Procfile) for automatic deployment connected to your GitHub account:
+The platform is deployed live on **Vercel Serverless** with automated CI/CD continuous deployment on every push to the `main` branch:
 
-### 1-Click Instant Deployment:
-Click the button below to deploy this repository directly to Render for free:
+| Platform Feature / Module | Live Production Link | Description |
+|---|---|---|
+| 🏛️ **Executive Risk Portal** | [Launch Portal](https://credit-card-approval-prediction-cyan.vercel.app/) | Live model health, Gini (0.6934), KS (49.82%), PSI (0.0418) |
+| 📊 **Model Risk Validation Suite** | [Open Dashboard](https://credit-card-approval-prediction-cyan.vercel.app/model-risk-evaluation) | Interactive 10-decile rank-ordering, PSI drift & dynamic Macro Stress Simulator |
+| 💳 **Underwriting Decision Engine** | [Score Application](https://credit-card-approval-prediction-cyan.vercel.app/predict) | Real-time Probability of Default (PD), bureau score (300-850), and Basel risk tiers |
+| 📜 **Model Audit Certificate** | [View Certificate](https://credit-card-approval-prediction-cyan.vercel.app/audit-report) | Printable US Fed SR 11-7 / OCC 2011-12 independent model validation sign-off |
 
-[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/udityamerit/Credit-Card-Approval-Prediction)
-
-### Manual Setup on Render (2 Minutes):
-1. Sign in to [Render.com](https://render.com/) with your GitHub account.
-2. Click **New +** $\rightarrow$ **Web Service**.
-3. Select and connect your repository: `udityamerit/Credit-Card-Approval-Prediction`.
-4. Configure the service settings:
-   - **Environment:** `Python 3`
-   - **Build Command:** `pip install -r requirements.txt && python train_champion_model.py`
-   - **Start Command:** `gunicorn wsgi:app`
-   - **Instance Type:** `Free`
-5. Click **Deploy Web Service**. Render will build the environment, generate the champion model, and provide a public HTTPS URL (e.g. `https://credit-card-approval-prediction.onrender.com`).
 
 
 ---
