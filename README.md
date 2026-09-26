@@ -9,6 +9,7 @@ This project is a machine learning-based web application that predicts the likel
 Many financial institutions face challenges in assessing credit card applications quickly and accurately. This project provides a predictive solution using machine learning to automate and improve this process.
 
 The application offers:
+
 - A user-friendly web interface (built using Flask)
 - Real-time predictions
 - Visual insights into model performance
@@ -57,38 +58,34 @@ The application offers:
 ├── LICENSE
 ├── .gitignore
 └── README.md
-
-````
+```
 
 ## 🚀 How to Run the Project
 
-1. **Clone the repository**  
+1. **Clone the repository**
+
    ```bash
    git clone https://github.com/udityamerit/credit-card-approval-prediction.git
    cd credit-card-approval-prediction
-
-
+   ```
 2. **Create a virtual environment** (optional but recommended)
 
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows: venv\Scripts\activate
    ```
-
 3. **Install dependencies**
 
    ```bash
    pip install -r requirements.txt
    ```
-
 4. **Run the Flask app**
 
    ```bash
-   python app.py
+   python app.py  
    ```
-
 5. **Visit in browser:**
-   Navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000) to use the application.
+   Navigate to [http://127.0.0.1:5000](http://127.0.0.1:5000)  and use the application.
 
 ---
 
@@ -119,16 +116,18 @@ Located in the `Images/` folder, these plots help analyze the performance of:
 * `form.html`: Takes user inputs for prediction
 * `result.html`: Displays prediction results and approval probability
 
-
 ## 🔥 Project Screenshots
 
 ### 🚀 Landing Page
+
 ![Landing Page](static/landing_page.jpg)
 
 ### 🧾 Input Form
+
 ![Input Page](static/Input_page.jpg)
 
 ### ✅ Result Prediction
+
 ![Result Page](static/result_page.jpg)
 
 ---
@@ -156,7 +155,5 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 👨‍💻 [My GitHub](https://github.com/udityamerit)
 
 📧 [Email Id](uditmerit@gmail.com)
-
-
 
 If you have any questions or suggestions, feel free to reach out via GitHub or email.
