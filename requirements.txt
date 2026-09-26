@@ -1,13 +1,6 @@
+Flask
 pandas
 numpy
-scipy
 scikit-learn
-imbalanced-learn
-lightgbm
-xgboost
 joblib
-matplotlib
-seaborn
-Flask
 gunicorn
-ipykernel

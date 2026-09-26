@@ -1,0 +1,9 @@
+Dataset/
+notebooks/
+*.csv
+*.md
+venv/
+newvenv/
+.git/
+run.bat
+requirements-dev.txt

@@ -214,7 +214,7 @@ class CreditRiskEvaluator:
         Simulates Macroeconomic Stress Testing on Probability of Default (PD)
         using the single-factor Vasicek asymptotic credit risk framework (Basel IRB formula).
         """
-        from scipy.stats import norm
+        import statistics
 
         pd_clamped = max(min(baseline_pd, 0.999), 0.001)
 
@@ -225,9 +225,10 @@ class CreditRiskEvaluator:
         ) / 3.0
 
         rho = asset_correlation
-        inv_pd = norm.ppf(pd_clamped)
+        dist = statistics.NormalDist()
+        inv_pd = dist.inv_cdf(pd_clamped)
         stressed_z = (inv_pd - np.sqrt(rho) * systematic_shock) / np.sqrt(1 - rho)
-        stressed_pd = float(norm.cdf(stressed_z))
+        stressed_pd = float(dist.cdf(stressed_z))
 
         lgd = 0.45
         ead = 10000.0
