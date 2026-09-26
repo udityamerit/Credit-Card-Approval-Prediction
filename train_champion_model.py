@@ -78,13 +78,13 @@ def train_and_export_champion_pipeline(base_dir=None):
     smote = SMOTE(sampling_strategy=0.15, random_state=42)
     X_train_res, y_train_res = smote.fit_resample(X_train, y_train)
 
-    # 5. Build Champion Soft-Voting Ensemble
+    # 5. Build Champion Soft-Voting Ensemble (Optimized for high accuracy & fast serverless load)
     rf = RandomForestClassifier(
-        n_estimators=100, max_depth=16, min_samples_split=8,
+        n_estimators=60, max_depth=14, min_samples_split=8,
         min_samples_leaf=3, random_state=42, n_jobs=-1
     )
     et = ExtraTreesClassifier(
-        n_estimators=80, max_depth=16, min_samples_split=8,
+        n_estimators=40, max_depth=14, min_samples_split=8,
         min_samples_leaf=3, random_state=42, n_jobs=-1
     )
 

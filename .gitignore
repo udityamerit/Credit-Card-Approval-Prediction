@@ -6,11 +6,9 @@ __pycache__/
 .ipynb_checkpoints/
 .DS_Store
 
-# Large model artifacts and weights (>100MB)
-*.pkl
-models/*.pkl
-!models/model_metadata.json
-!models/best_threshold.txt
+# Temporary scratch and experiment files
+*.log
+scratch/
 
 # Interview and internal preparation notes
 Credit_Risk_and_Model_Validation_Interview_Guide.md
