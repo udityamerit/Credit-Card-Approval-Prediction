@@ -41,6 +41,9 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 2px solid var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
     .nav-brand {
       display: flex;
@@ -59,6 +62,7 @@
       justify-content: center;
       font-size: 1.1rem;
       border-radius: 6px;
+      flex-shrink: 0;
     }
     .nav-links { display: flex; gap: 1rem; align-items: center; }
     .nav-link {
@@ -69,8 +73,48 @@
       padding: 8px 14px;
       border-radius: 6px;
       transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     .nav-link:hover { color: white; background: rgba(255, 255, 255, 0.08); }
+
+    /* Mobile Nav Toggle */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 40px;
+      transition: all 0.2s ease;
+    }
+    .nav-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background-color: #F1F5F9;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .nav-toggle.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-toggle.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
 
     /* Result Container */
     .result-wrapper {
@@ -103,8 +147,9 @@
     }
 
     .verdict-title-box h1 {
-      font-size: 2rem;
+      font-size: clamp(1.4rem, 4vw, 2rem);
       margin-bottom: 0.35rem;
+      line-height: 1.25;
     }
     .verdict-badge {
       display: inline-flex;
@@ -116,6 +161,7 @@
       font-weight: 600;
       background: rgba(255, 255, 255, 0.15);
       color: white;
+      margin-bottom: 0.5rem;
     }
 
     /* Score Gauge Box */
@@ -158,7 +204,7 @@
       background: #F8FAFC;
       border: 1px solid var(--border);
       border-radius: 10px;
-      padding: 1rem;
+      padding: 1.1rem;
     }
     .m-title { font-size: 0.78rem; font-weight: 600; text-transform: uppercase; color: var(--text-muted); }
     .m-val { font-size: 1.5rem; font-weight: 700; font-family: 'Outfit'; color: var(--navy); margin-top: 4px; }
@@ -238,10 +284,84 @@
     .btn-secondary { background: #E2E8F0; color: var(--slate); }
     .btn-secondary:hover { background: #CBD5E1; }
 
+    @media (max-width: 860px) {
+      .navbar {
+        padding: 0.85rem 1.25rem;
+      }
+      .nav-toggle {
+        display: flex;
+      }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #0B1120;
+        border-bottom: 2px solid var(--primary);
+        box-shadow: 0 16px 24px rgba(0, 0, 0, 0.4);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem 1.25rem 1.25rem;
+        gap: 0.6rem;
+        display: none;
+      }
+      .nav-links.active {
+        display: flex;
+        animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .nav-link {
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 768px) {
-      .metrics-grid { grid-template-columns: 1fr 1fr; }
-      .product-box { flex-direction: column; text-align: center; }
-      .score-circle-box { width: 100%; }
+      .verdict-header {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.5rem;
+        padding: 1.75rem 1.25rem;
+      }
+      .score-circle-box {
+        width: 100%;
+        min-width: unset;
+      }
+      .product-box {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1.25rem;
+      }
+      .result-body {
+        padding: 1.5rem 1.25rem;
+      }
+      .result-wrapper {
+        margin: 1.5rem 1rem 3rem;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .navbar { padding: 0.75rem 1rem; }
+      .result-wrapper { margin: 0.75rem 0.5rem 2rem; border-radius: 12px; }
+      .verdict-header { padding: 1.25rem 1rem; }
+      .score-number { font-size: 2.4rem; }
+      .metrics-grid { grid-template-columns: 1fr; gap: 0.85rem; }
+      .actions-row {
+        flex-direction: column;
+        width: 100%;
+      }
+      .actions-row .btn {
+        width: 100%;
+        justify-content: center;
+        min-height: 46px;
+      }
     }
   </style>
 </head>
@@ -256,7 +376,12 @@
         <div style="font-size:0.72rem; color:#94A3B8;">Credit Decisioning &amp; PD Evaluation Result</div>
       </div>
     </a>
-    <div class="nav-links">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-links" id="navMenu">
       <a href="/" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
       <a href="/model-risk-evaluation" class="nav-link"><i class="fa-solid fa-chart-line"></i> Model Validation Suite</a>
       <a href="/audit-report" class="nav-link"><i class="fa-solid fa-file-shield"></i> SR 11-7 Audit Certificate</a>
@@ -382,5 +507,22 @@
     {% endif %}
   </div>
 
+  <script>
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navToggle.classList.toggle('open');
+        navMenu.classList.toggle('active');
+      });
+      document.addEventListener('click', (e) => {
+        if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+          navToggle.classList.remove('open');
+          navMenu.classList.remove('active');
+        }
+      });
+    }
+  </script>
 </body>
 </html>

@@ -114,6 +114,18 @@
     }
     th { background: #F8FAFC; color: #334155; font-weight: 600; }
 
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 1.5rem;
+      border-radius: 6px;
+    }
+    .table-responsive table {
+      min-width: 560px;
+      margin-bottom: 0;
+    }
+
     .signature-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -151,6 +163,59 @@
     }
     .btn-red { background: #DC2626; color: white; }
     .btn-back { background: #E2E8F0; color: #1E293B; }
+
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem 0.5rem;
+      }
+      .report-container {
+        padding: 2rem 1.25rem;
+      }
+      .meta-grid {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+      }
+    }
+    @media (max-width: 600px) {
+      .report-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      .doc-meta {
+        text-align: left;
+      }
+      .signature-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 2rem;
+      }
+      .no-print-bar {
+        flex-direction: column;
+        gap: 0.75rem;
+        align-items: stretch;
+      }
+      .no-print-bar .btn {
+        width: 100%;
+        justify-content: center;
+        padding: 10px 16px;
+      }
+      .verdict-banner {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+      }
+    }
+    @media (max-width: 440px) {
+      .report-container {
+        padding: 1.25rem 0.85rem;
+      }
+      .brand-section {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -218,79 +283,83 @@
 
     <!-- Quantitative Metrics Summary -->
     <div class="section-title">2. Quantitative Validation Summary</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Evaluation Pillar</th>
-          <th>Metric Name</th>
-          <th>Observed Value</th>
-          <th>Regulatory Hurdle</th>
-          <th>Audit Status</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Discriminatory Power</td>
-          <td>Gini Coefficient (Somers' D)</td>
-          <td><strong>{{ data.discriminatory_power.champion.gini }}</strong></td>
-          <td>&ge; 0.400</td>
-          <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Strong)</span></td>
-        </tr>
-        <tr>
-          <td>Separation Capacity</td>
-          <td>Kolmogorov-Smirnov (KS)</td>
-          <td><strong>{{ data.discriminatory_power.champion.ks_statistic }}%</strong></td>
-          <td>&ge; 30.0%</td>
-          <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Decile 3)</span></td>
-        </tr>
-        <tr>
-          <td>Calibration Accuracy</td>
-          <td>Brier Score / E-to-O Ratio</td>
-          <td><strong>0.052 / 1.03</strong></td>
-          <td>0.90 &ndash; 1.10</td>
-          <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Calibrated)</span></td>
-        </tr>
-        <tr>
-          <td>Population Stability</td>
-          <td>Overall PSI</td>
-          <td><strong>{{ data.population_stability.overall_psi }}</strong></td>
-          <td>&lt; 0.100</td>
-          <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Green)</span></td>
-        </tr>
-        <tr>
-          <td>Fair Lending (ECOA)</td>
-          <td>Gender Disparate Impact</td>
-          <td><strong>{{ data.fair_lending_audit.disparate_impact_gender }}</strong></td>
-          <td>&ge; 0.800</td>
-          <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Non-biased)</span></td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Evaluation Pillar</th>
+            <th>Metric Name</th>
+            <th>Observed Value</th>
+            <th>Regulatory Hurdle</th>
+            <th>Audit Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Discriminatory Power</td>
+            <td>Gini Coefficient (Somers' D)</td>
+            <td><strong>{{ data.discriminatory_power.champion.gini }}</strong></td>
+            <td>&ge; 0.400</td>
+            <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Strong)</span></td>
+          </tr>
+          <tr>
+            <td>Separation Capacity</td>
+            <td>Kolmogorov-Smirnov (KS)</td>
+            <td><strong>{{ data.discriminatory_power.champion.ks_statistic }}%</strong></td>
+            <td>&ge; 30.0%</td>
+            <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Decile 3)</span></td>
+          </tr>
+          <tr>
+            <td>Calibration Accuracy</td>
+            <td>Brier Score / E-to-O Ratio</td>
+            <td><strong>0.052 / 1.03</strong></td>
+            <td>0.90 &ndash; 1.10</td>
+            <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Calibrated)</span></td>
+          </tr>
+          <tr>
+            <td>Population Stability</td>
+            <td>Overall PSI</td>
+            <td><strong>{{ data.population_stability.overall_psi }}</strong></td>
+            <td>&lt; 0.100</td>
+            <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Green)</span></td>
+          </tr>
+          <tr>
+            <td>Fair Lending (ECOA)</td>
+            <td>Gender Disparate Impact</td>
+            <td><strong>{{ data.fair_lending_audit.disparate_impact_gender }}</strong></td>
+            <td>&ge; 0.800</td>
+            <td><span style="color:#16A34A; font-weight:600;"><i class="fa-solid fa-check"></i> Pass (Non-biased)</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
 
     <!-- Stress Testing Summary -->
     <div class="section-title">3. Macroeconomic Stress Testing (CCAR / PRA)</div>
-    <table>
-      <thead>
-        <tr>
-          <th>Stress Scenario</th>
-          <th>Unemployment Shock</th>
-          <th>GDP Shock</th>
-          <th>Stressed Portfolio PD</th>
-          <th>Capital Buffer Adequacy</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for s in data.stress_scenarios %}
-        <tr>
-          <td><strong>{{ s.name }}</strong></td>
-          <td>{{ s.unemployment_shock }}</td>
-          <td>{{ s.gdp_shock }}</td>
-          <td>{{ s.portfolio_pd }}</td>
-          <td>{{ s.capital_buffer_status }}</td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table>
+        <thead>
+          <tr>
+            <th>Stress Scenario</th>
+            <th>Unemployment Shock</th>
+            <th>GDP Shock</th>
+            <th>Stressed Portfolio PD</th>
+            <th>Capital Buffer Adequacy</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for s in data.stress_scenarios %}
+          <tr>
+            <td><strong>{{ s.name }}</strong></td>
+            <td>{{ s.unemployment_shock }}</td>
+            <td>{{ s.gdp_shock }}</td>
+            <td>{{ s.portfolio_pd }}</td>
+            <td>{{ s.capital_buffer_status }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
 
     <!-- Limitations and Monitoring Conditions -->
     <div class="section-title">4. Model Risk Conditions &amp; Ongoing Monitoring</div>

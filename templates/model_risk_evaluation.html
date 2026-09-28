@@ -46,6 +46,9 @@
       justify-content: space-between;
       align-items: center;
       border-bottom: 2px solid var(--primary);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
     }
     .nav-brand {
       display: flex;
@@ -64,6 +67,7 @@
       justify-content: center;
       font-size: 1.1rem;
       border-radius: 6px;
+      flex-shrink: 0;
     }
     .nav-links { display: flex; gap: 1rem; align-items: center; }
     .nav-link {
@@ -74,9 +78,49 @@
       padding: 8px 14px;
       border-radius: 6px;
       transition: all 0.2s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
     }
     .nav-link:hover { color: white; background: rgba(255, 255, 255, 0.08); }
     .nav-btn-primary { background: var(--primary); color: white !important; font-weight: 600; }
+
+    /* Mobile Nav Toggle */
+    .nav-toggle {
+      display: none;
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      padding: 8px 10px;
+      cursor: pointer;
+      flex-direction: column;
+      gap: 5px;
+      justify-content: center;
+      align-items: center;
+      width: 42px;
+      height: 40px;
+      transition: all 0.2s ease;
+    }
+    .nav-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+    .nav-toggle span {
+      display: block;
+      width: 22px;
+      height: 2px;
+      background-color: #F1F5F9;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+    .nav-toggle.open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .nav-toggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+    .nav-toggle.open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
 
     /* Subheader & Model Meta */
     .dashboard-header {
@@ -95,9 +139,10 @@
       gap: 1.5rem;
     }
     .header-title-box h1 {
-      font-size: 2rem;
+      font-size: clamp(1.4rem, 4vw, 2rem);
       margin-bottom: 0.5rem;
       letter-spacing: -0.5px;
+      line-height: 1.25;
     }
     .meta-badges {
       display: flex;
@@ -129,7 +174,7 @@
       padding: 0 1.5rem 3rem;
     }
 
-    /* Navigation Tabs */
+    /* Navigation Tabs with smooth touch-scroll */
     .tabs-nav {
       display: flex;
       gap: 8px;
@@ -139,6 +184,17 @@
       padding: 0.5rem 0.5rem 0;
       border-radius: 12px 12px 0 0;
       box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+      white-space: nowrap;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+    }
+    .tabs-nav::-webkit-scrollbar {
+      height: 4px;
+    }
+    .tabs-nav::-webkit-scrollbar-thumb {
+      background: #CBD5E1;
+      border-radius: 4px;
     }
     .tab-btn {
       padding: 12px 20px;
@@ -154,6 +210,8 @@
       gap: 8px;
       transition: all 0.2s ease;
       font-family: 'Inter', sans-serif;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
     .tab-btn:hover { color: var(--text-dark); background: rgba(0, 0, 0, 0.02); }
     .tab-btn.active {
@@ -342,9 +400,145 @@
     .btn-primary { background: var(--primary); color: white; }
     .btn-primary:hover { background: var(--primary-hover); }
 
-    @media (max-width: 900px) {
-      .metrics-summary-grid { grid-template-columns: 1fr 1fr; }
-      .simulator-container { grid-template-columns: 1fr; }
+    /* Table Responsive Wrapper */
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 1.5rem;
+      border-radius: 8px;
+    }
+    .table-responsive table {
+      min-width: 580px;
+      margin-bottom: 0 !important;
+    }
+    .table-responsive.table-wide table {
+      min-width: 820px;
+    }
+
+    /* Grid Layouts for Tabs */
+    .stability-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+      margin-bottom: 2rem;
+    }
+    .fair-lending-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    /* Responsive Breakpoints */
+    @media (max-width: 992px) {
+      .metrics-summary-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .simulator-container {
+        grid-template-columns: 1fr;
+      }
+      .stability-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    @media (max-width: 860px) {
+      .navbar {
+        padding: 0.85rem 1.25rem;
+      }
+      .nav-toggle {
+        display: flex;
+      }
+      .nav-links {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: #0B1120;
+        border-bottom: 2px solid var(--primary);
+        box-shadow: 0 16px 24px rgba(0, 0, 0, 0.4);
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem 1.25rem 1.25rem;
+        gap: 0.6rem;
+        display: none;
+      }
+      .nav-links.active {
+        display: flex;
+        animation: slideDown 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+      @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .nav-link {
+        padding: 12px 16px;
+        font-size: 0.95rem;
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .header-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1.25rem;
+      }
+      .header-container .btn {
+        width: 100%;
+        justify-content: center;
+      }
+      .dashboard-header {
+        padding: 2rem 1.25rem 1.75rem;
+      }
+      .dashboard-body {
+        padding: 0 1rem 2.5rem;
+        margin: 1.5rem auto;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .fair-lending-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+      .card {
+        padding: 1.25rem;
+        border-radius: 12px;
+      }
+      .card-title {
+        font-size: 1.1rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+      .stress-kpi-row {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar { padding: 0.75rem 1rem; }
+      .metrics-summary-grid {
+        grid-template-columns: 1fr;
+        gap: 0.85rem;
+      }
+      .meta-badges {
+        gap: 6px;
+      }
+      .meta-badge {
+        font-size: 0.72rem;
+        padding: 3px 8px;
+      }
+      .tab-btn {
+        padding: 10px 14px;
+        font-size: 0.85rem;
+      }
+      .checklist-item {
+        padding: 0.75rem 0.25rem;
+        gap: 10px;
+      }
     }
   </style>
 </head>
@@ -359,7 +553,12 @@
         <div style="font-size:0.72rem; color:#94A3B8;">GRA-WCR Model Risk Evaluation</div>
       </div>
     </a>
-    <div class="nav-links">
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-links" id="navMenu">
       <a href="/" class="nav-link"><i class="fa-solid fa-house"></i> Home</a>
       <a href="/audit-report" class="nav-link"><i class="fa-solid fa-file-shield"></i> SR 11-7 Audit Certificate</a>
       <a href="/predict" class="nav-link nav-btn-primary"><i class="fa-solid fa-credit-card"></i> Credit Scoring Engine</a>
@@ -442,36 +641,38 @@
           Comparing the production Champion Random Forest against the compliant Baseline Challenger Logistic Regression Scorecard.
         </p>
 
-        <table class="styled-table" style="margin-bottom: 2rem;">
-          <thead>
-            <tr>
-              <th>Model Architecture</th>
-              <th>ROC-AUC</th>
-              <th>Gini Coefficient</th>
-              <th>KS Statistic</th>
-              <th>Brier Score</th>
-              <th>Governance Assessment</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr style="background:#F0FDF4; font-weight:600;">
-              <td><i class="fa-solid fa-trophy" style="color:#EAB308;"></i> {{ data.discriminatory_power.champion.algorithm }}</td>
-              <td>{{ data.discriminatory_power.champion.roc_auc }}</td>
-              <td>{{ data.discriminatory_power.champion.gini }}</td>
-              <td>{{ data.discriminatory_power.champion.ks_statistic }}%</td>
-              <td>{{ data.discriminatory_power.champion.brier_score }}</td>
-              <td><span class="badge-pill-sm badge-green">Champion (Approved)</span></td>
-            </tr>
-            <tr>
-              <td><i class="fa-solid fa-landmark"></i> {{ data.discriminatory_power.challenger.algorithm }}</td>
-              <td>{{ data.discriminatory_power.challenger.roc_auc }}</td>
-              <td>{{ data.discriminatory_power.challenger.gini }}</td>
-              <td>{{ data.discriminatory_power.challenger.ks_statistic }}%</td>
-              <td>{{ data.discriminatory_power.challenger.brier_score }}</td>
-              <td><span class="badge-pill-sm badge-amber">Regulatory Baseline</span></td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="table-responsive">
+          <table class="styled-table" style="margin-bottom: 2rem;">
+            <thead>
+              <tr>
+                <th>Model Architecture</th>
+                <th>ROC-AUC</th>
+                <th>Gini Coefficient</th>
+                <th>KS Statistic</th>
+                <th>Brier Score</th>
+                <th>Governance Assessment</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr style="background:#F0FDF4; font-weight:600;">
+                <td><i class="fa-solid fa-trophy" style="color:#EAB308;"></i> {{ data.discriminatory_power.champion.algorithm }}</td>
+                <td>{{ data.discriminatory_power.champion.roc_auc }}</td>
+                <td>{{ data.discriminatory_power.champion.gini }}</td>
+                <td>{{ data.discriminatory_power.champion.ks_statistic }}%</td>
+                <td>{{ data.discriminatory_power.champion.brier_score }}</td>
+                <td><span class="badge-pill-sm badge-green">Champion (Approved)</span></td>
+              </tr>
+              <tr>
+                <td><i class="fa-solid fa-landmark"></i> {{ data.discriminatory_power.challenger.algorithm }}</td>
+                <td>{{ data.discriminatory_power.challenger.roc_auc }}</td>
+                <td>{{ data.discriminatory_power.challenger.gini }}</td>
+                <td>{{ data.discriminatory_power.challenger.ks_statistic }}%</td>
+                <td>{{ data.discriminatory_power.challenger.brier_score }}</td>
+                <td><span class="badge-pill-sm badge-amber">Regulatory Baseline</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
 
         <div class="card-title" style="margin-top: 1.5rem;">
           <span>Decile Rank-Ordering &amp; Kolmogorov-Smirnov (KS) Profile</span>
@@ -480,7 +681,7 @@
           Verification of monotonic bad rate descent across all 10 risk deciles (essential requirement for Basel II/III IRB models).
         </p>
 
-        <div style="overflow-x: auto;">
+        <div class="table-responsive table-wide">
           <table class="styled-table">
             <thead>
               <tr>
@@ -531,7 +732,7 @@
           Quantifies distribution shift between the Model Development sample and Current Production cohorts.
         </p>
 
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+        <div class="stability-grid">
           <div>
             <h4 style="margin-bottom: 0.75rem; color:var(--navy);">Regulatory Benchmark Bands (PRA / Fed)</h4>
             <div style="display:flex; flex-direction:column; gap:8px;">
@@ -549,24 +750,26 @@
 
           <div>
             <h4 style="margin-bottom: 0.75rem; color:var(--navy);">Characteristic Stability Index (CSI) by Feature</h4>
-            <table class="styled-table">
-              <thead>
-                <tr>
-                  <th>Input Variable</th>
-                  <th>CSI Value</th>
-                  <th>Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {% for item in data.population_stability.feature_csi %}
-                <tr>
-                  <td><code>{{ item.feature }}</code></td>
-                  <td><strong>{{ item.csi }}</strong></td>
-                  <td><span class="badge-pill-sm badge-green">{{ item.status }}</span></td>
-                </tr>
-                {% endfor %}
-              </tbody>
-            </table>
+            <div class="table-responsive">
+              <table class="styled-table">
+                <thead>
+                  <tr>
+                    <th>Input Variable</th>
+                    <th>CSI Value</th>
+                    <th>Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for item in data.population_stability.feature_csi %}
+                  <tr>
+                    <td><code>{{ item.feature }}</code></td>
+                    <td><strong>{{ item.csi }}</strong></td>
+                    <td><span class="badge-pill-sm badge-green">{{ item.status }}</span></td>
+                  </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
@@ -669,7 +872,7 @@
           Ensuring ethical AI and non-discrimination compliance under the Equal Credit Opportunity Act (ECOA) and Banking Fair Lending Standards.
         </p>
 
-        <div style="display:grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+        <div class="fair-lending-grid">
           <div style="background:#F8FAFC; border:1px solid var(--border); padding:1.25rem; border-radius:10px;">
             <div style="font-size:0.8rem; font-weight:600; color:var(--text-muted); text-transform:uppercase;">Gender Disparate Impact Ratio</div>
             <div style="font-size:1.8rem; font-weight:800; font-family:'Outfit'; color:var(--navy); margin:4px 0;">
@@ -710,6 +913,22 @@
   </main>
 
   <script>
+    const navToggle = document.getElementById('navToggle');
+    const navMenu = document.getElementById('navMenu');
+    if (navToggle && navMenu) {
+      navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        navToggle.classList.toggle('open');
+        navMenu.classList.toggle('active');
+      });
+      document.addEventListener('click', (e) => {
+        if (!navToggle.contains(e.target) && !navMenu.contains(e.target)) {
+          navToggle.classList.remove('open');
+          navMenu.classList.remove('active');
+        }
+      });
+    }
+
     function openTab(evt, tabId) {
       const tabPanes = document.getElementsByClassName("tab-pane");
       for (let i = 0; i < tabPanes.length; i++) {
